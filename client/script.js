@@ -1,45 +1,63 @@
-const ws = new WebSocket(`ws://${window.location.host}/ws`);
+const serverUrl = "ws://localhost:8080";
 
-const statusDiv = document.getElementById("status");
-const messageInput = document.getElementById("messageInput");
-const sendBtn = document.getElementById("sendBtn");
-const messagesList = document.getElementById("messages");
+let socket;
+let statusDiv;
+let messageInput;
+let sendBtn;
+let messagesList;
+let messageOutput;
+const setup = () => {
+  statusDiv = document.getElementById("status");
+  messageInput = document.getElementById("messageInput");
+  sendBtn = document.getElementById("sendBtn");
+  messagesList = document.getElementById("messages");
 
-// Connection opened
-ws.onopen = () => {
-    console.log("Connected to WebSocket server");
-    statusDiv.textContent = "🟢 Connected";
+  sendBtn.addEventListener("click", sendMessage);
+  messageInput.addEventListener("keypress", inputMessage);
+
+  openSocket(serverUrl);
 };
 
-// Handle incoming messages
-ws.onmessage = (event) => {
+const openSocket = (url) => {
+  socket = new WebSocket(url);
+  socket.addEventListener("open", openConnection);
+  socket.addEventListener("close", closeConnection);
+  socket.addEventListener("message", readIncomingMessage);
+};
+
+const openConnection = () => {
+  console.log("Connected to WebSocket server");
+  statusDiv.textContent = "🟢 Connected";
+};
+
+const closeConnection = () => {
+  console.log("Disconnected from WebSocket server");
+  statusDiv.textContent = "🔴 Disconnected";
+};
+
+const readIncomingMessage = (e) => {
+  const li = document.createElement("li");
+  li.textContent = `🔹 ${e.data}`;
+  messagesList.appendChild(li);
+};
+
+const sendMessage = () => {
+  const message = messageInput.value;
+  if (message.trim() !== "") {
+    ws.send(message);
+    messageInput.value = ""; // Clear input field
+
     const li = document.createElement("li");
-    li.textContent = `🔹 ${event.data}`;
+    li.textContent = `🟡 You: ${message}`;
     messagesList.appendChild(li);
+  }
 };
 
-// Handle connection close
-ws.onclose = () => {
-    console.log("Disconnected from WebSocket server");
-    statusDiv.textContent = "🔴 Disconnected";
+const inputMessage = (e) => {
+  if (e.key === "Enter") {
+    sendBtn.click();
+  }
 };
 
-// Send a message when clicking the button
-sendBtn.addEventListener("click", () => {
-    const message = messageInput.value;
-    if (message.trim() !== "") {
-        ws.send(message);
-        messageInput.value = ""; // Clear input field
-
-        const li = document.createElement("li");
-        li.textContent = `🟡 You: ${message}`;
-        messagesList.appendChild(li);
-    }
-});
-
-// Send message on Enter key press
-messageInput.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-        sendBtn.click();
-    }
-});
+// add a listener for the page to load:
+window.addEventListener("load", setup);
