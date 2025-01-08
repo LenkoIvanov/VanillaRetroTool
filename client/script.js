@@ -1,4 +1,4 @@
-const serverUrl = "ws://localhost:8080";
+const serverUrl = 'ws://localhost:8080';
 
 let socket;
 let statusDiv;
@@ -23,6 +23,10 @@ const openSocket = (url) => {
   socket.addEventListener("open", openConnection);
   socket.addEventListener("close", closeConnection);
   socket.addEventListener("message", readIncomingMessage);
+  socket.addEventListener("error", (err) => {
+    console.error("WebSocket error:", err);
+    statusDiv.textContent = "🔴 Error connecting to WebSocket";
+  });
 };
 
 const openConnection = () => {
@@ -31,9 +35,14 @@ const openConnection = () => {
 };
 
 const closeConnection = () => {
-  console.log("Disconnected from WebSocket server");
-  statusDiv.textContent = "🔴 Disconnected";
-};
+    console.log("Disconnected from WebSocket server");
+    statusDiv.textContent = "🔴 Disconnected. Reconnecting...";
+    
+    setTimeout(() => {
+      console.log("Reconnecting...");
+      openSocket(serverUrl);
+    }, 3000); // Retry after 3 seconds
+  };
 
 const readIncomingMessage = (e) => {
   const li = document.createElement("li");
@@ -44,7 +53,7 @@ const readIncomingMessage = (e) => {
 const sendMessage = () => {
   const message = messageInput.value;
   if (message.trim() !== "") {
-    ws.send(message);
+    socket.send(message);
     messageInput.value = ""; // Clear input field
 
     const li = document.createElement("li");
@@ -61,3 +70,10 @@ const inputMessage = (e) => {
 
 // add a listener for the page to load:
 window.addEventListener("load", setup);
+
+// close connection when the page unloads or refreshes
+window.addEventListener("beforeunload", () => {
+    if (socket) {
+      socket.close();
+    }
+  });
