@@ -1,4 +1,4 @@
-const serverUrl = 'ws://localhost:8080';
+const serverUrl = "ws://localhost:8080";
 
 let socket;
 let statusDiv;
@@ -35,14 +35,14 @@ const openConnection = () => {
 };
 
 const closeConnection = () => {
-    console.log("Disconnected from WebSocket server");
-    statusDiv.textContent = "🔴 Disconnected. Reconnecting...";
-    
-    setTimeout(() => {
-      console.log("Reconnecting...");
-      openSocket(serverUrl);
-    }, 3000); // Retry after 3 seconds
-  };
+  console.log("Disconnected from WebSocket server");
+  statusDiv.textContent = "🔴 Disconnected. Reconnecting...";
+
+  setTimeout(() => {
+    console.log("Reconnecting...");
+    openSocket(serverUrl);
+  }, 3000); // Retry after 3 seconds
+};
 
 const readIncomingMessage = (e) => {
   const li = document.createElement("li");
@@ -53,7 +53,7 @@ const readIncomingMessage = (e) => {
 const sendMessage = () => {
   const message = messageInput.value;
   if (message.trim() !== "") {
-    socket.send(JSON.stringify({message: message}));
+    socket.send(JSON.stringify({ message: message }));
     messageInput.value = ""; // Clear input field
 
     const li = document.createElement("li");
@@ -73,7 +73,7 @@ window.addEventListener("load", setup);
 
 // close connection when the page unloads or refreshes
 window.addEventListener("beforeunload", () => {
-    if (socket) {
-      socket.close();
-    }
-  });
+  if (socket) {
+    socket.close();
+  }
+});
