@@ -53,7 +53,7 @@ const readIncomingMessage = (e) => {
 const sendMessage = () => {
   const message = messageInput.value;
   if (message.trim() !== "") {
-    socket.send(message);
+    socket.send(JSON.stringify({message: message}));
     messageInput.value = ""; // Clear input field
 
     const li = document.createElement("li");
