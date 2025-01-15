@@ -1,8 +1,6 @@
 import { RetroNote, notesStorageSingleton } from "../singletons/RetroNotes.js";
 
 class RetroNotesService {
-    constructor(){
-    }
 
     addNewNote(request) {
         console.log('Request', request);
