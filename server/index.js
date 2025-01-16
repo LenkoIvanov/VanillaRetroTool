@@ -1,22 +1,30 @@
 import { WebSocketServer } from 'ws';
 import { wssConfig } from './src/configs/socketServerConfig.js';
-import { connectionService } from './src/services/connectionService.js';
-import { connectionStorageSingleton } from './src/singletons/Connections.js'
+import { wssManager } from './src/singletons/WebSocketManager.js'
+import { retroNotesService } from './src/services/retroNotesService.js';
 
 const wss = new WebSocketServer(wssConfig);
 
-wss.on('connection', function connection(ws, request) {
-    ws.send('Connection established');
-    connectionService.addNewConnection('blaaa')
+wss.on('connection', function connection(ws) {
+    wssManager.addConnection(ws);
+    wssManager.pingConnection(ws, 'Connected to web socket');
   
     ws.on('message', function message(data) {
-        const parsedData = JSON.parse(data);
-        console.log('Test connection: ', JSON.stringify(connectionStorageSingleton.getConnections))
-        console.log('Message recieved: ', parsedData.message);
+      try{
+        wssManager.receiveDataFromConnection(data, (parsed) => {
+          console.log("Received new note: ", parsed);
+          retroNotesService.addNewNote(parsed);
+        })
+      }catch(e){
+        console.log("An error encountered while saving a new note: ", e);
+      } finally {
+        const payload = JSON.stringify(retroNotesService.getAllNotes());
+        console.log("Broadcast payload: ", payload);
+        wssManager.broadcast(payload);
+      }
     });
 
     ws.on('close', function () {
-      connectionService.removeNewConnection('blaaa');
-      console.log('Test connection: ', JSON.stringify(connectionStorageSingleton.getConnections))
+      wssManager.removeConnection(ws)
     });
 });

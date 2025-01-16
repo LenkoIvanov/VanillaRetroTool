@@ -6,12 +6,12 @@ export class RetroNote {
     }
 }
 
-class NonPersistentNoteStorage {
+class RetroNoteStorage {
     constructor() {
         this.noteStorage = [];
     }
 
-    get getNotes() {
+    getNotes() {
         return this.noteStorage;
     }
 
@@ -35,4 +35,4 @@ class NonPersistentNoteStorage {
     }
 }
 
-export const notesStorageSingleton = new NonPersistentNoteStorage();
+export const notesStorageSingleton = new RetroNoteStorage();
