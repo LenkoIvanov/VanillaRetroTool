@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { WebSocket } from 'ws';
 
 class WebSocketManager {

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { RetroNote, notesStorageSingleton } from '../singletons/RetroNotes.js';
 
 class RetroNotesService {

@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import { WebSocketServer } from 'ws';
-import { wssConfig } from './src/configs/socketServerConfig.js';
-import { wssManager } from './src/singletons/WebSocketManager.js';
-import { retroNotesService } from './src/services/retroNotesService.js';
+import { wssConfig } from './configs/socketServerConfig.js';
+import { wssManager } from './singletons/WebSocketManager.js';
+import { retroNotesService } from './services/retroNotesService.js';
 
+// TODO --> Create a logger to avoid console logging stuff
 const wss = new WebSocketServer(wssConfig);
 
 wss.on('connection', function connection(ws) {
