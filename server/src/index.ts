@@ -3,6 +3,7 @@ import { WebSocketServer } from 'ws';
 import { wssConfig } from './configs/socketServerConfig.js';
 import { wssManager } from './singletons/WebSocketManager.js';
 import { retroNotesService } from './services/retroNotesService.js';
+import type { RetroNoteData } from './types/RetroNoteData.js';
 
 // TODO --> Create a logger to avoid console logging stuff
 const wss = new WebSocketServer(wssConfig);
@@ -13,7 +14,7 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function message(data) {
     try {
-      wssManager.receiveDataFromConnection(data, (parsed) => {
+      wssManager.receiveDataFromConnection(data.toString(), (parsed: RetroNoteData) => {
         console.log('Received new note: ', parsed);
         retroNotesService.addNewNote(parsed);
       });

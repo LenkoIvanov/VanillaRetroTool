@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // Base options
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    // Strictness options
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // Transpiler options
+    "module": "NodeNext",
+    "outDir": "dist",
+    "sourceMap": true,
+
+    // do not include built-in types for DOM
+    "lib": ["es2022"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
