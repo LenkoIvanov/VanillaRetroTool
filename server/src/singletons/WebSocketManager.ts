@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 import { WebSocket } from 'ws';
+import type { RetroNoteData } from '../types/RetroNoteData.js';
+import { parseRetroNote } from '../helpers/retroNotesHelper.js';
 
 class WebSocketManager {
   connections: Set<WebSocket>;
@@ -42,9 +44,13 @@ class WebSocketManager {
     }
   }
 
-  receiveDataFromConnection(data: string, callback: (parsedData: any) => void) {
-    const parsedData = JSON.parse(data);
-    callback(parsedData);
+  receiveDataFromConnection(data: string, callback: (parsedData: RetroNoteData) => void) {
+    try {
+      const newRetroNote = parseRetroNote(data);
+      callback(newRetroNote);
+    } catch (err) {
+      console.log('Logger: ', err);
+    }
   }
 }
 
