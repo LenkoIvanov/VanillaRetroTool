@@ -1,28 +1,33 @@
+/* eslint-disable no-console */
 import { WebSocket } from 'ws';
+import type { RetroNoteData } from '../types/RetroNoteData.js';
+import { parseRetroNote } from '../helpers/retroNotesHelper.js';
 
 class WebSocketManager {
+  connections: Set<WebSocket>;
+
   constructor() {
-    this.connections = new Set();
+    this.connections = new Set<WebSocket>();
   }
 
   get getConnections() {
     return this.connections;
   }
 
-  addConnection(newConnection) {
+  addConnection(newConnection: WebSocket) {
     if (newConnection instanceof WebSocket) {
       this.connections.add(newConnection);
     }
   }
 
-  removeConnection(connection) {
+  removeConnection(connection: WebSocket) {
     if (connection instanceof WebSocket) {
       this.connections.delete(connection);
       console.log('Connection removed');
     }
   }
 
-  pingConnection(connection, message) {
+  pingConnection(connection: WebSocket, message: string) {
     if (connection instanceof WebSocket) {
       const stringifiedMessage = JSON.stringify({
         pingMsg: message,
@@ -31,17 +36,21 @@ class WebSocketManager {
     }
   }
 
-  broadcast(payload) {
+  broadcast(payload: string) {
     for (const connection of this.connections) {
-      if (connection instanceof WebSocket && connection.readyState === WebSocket.OPEN) {
+      if (connection.readyState === WebSocket.OPEN) {
         connection.send(payload);
       }
     }
   }
 
-  receiveDataFromConnection(data, callback) {
-    const parsedData = JSON.parse(data);
-    callback(parsedData);
+  receiveDataFromConnection(data: string, callback: (parsedData: RetroNoteData) => void) {
+    try {
+      const newRetroNote = parseRetroNote(data);
+      callback(newRetroNote);
+    } catch (err) {
+      console.log('Logger: ', err);
+    }
   }
 }
 
