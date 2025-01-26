@@ -4,9 +4,13 @@ import { wssConfig } from './configs/socketServerConfig.js';
 import { wssManager } from './singletons/WebSocketManager.js';
 import { retroNotesService } from './services/retroNotesService.js';
 import type { RetroNoteData } from './types/RetroNoteData.js';
+import logger from './singletons/logger.js';
 
-// TODO --> Create a logger to avoid console logging stuff
 const wss = new WebSocketServer(wssConfig);
+
+logger.info('Web Socket Server started.');
+logger.warn('test warn');
+logger.error('error test');
 
 wss.on('connection', function connection(ws) {
   wssManager.addConnection(ws);
