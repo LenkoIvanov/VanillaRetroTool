@@ -1,32 +1,36 @@
 import { createLogger, addColors, transports, format } from 'winston';
 
-// Custom log levels
-const logLevels = {
-  levels: {
-    error: 0,
-    warn: 1,
-    info: 2,
-  },
-  colors: {
-    error: 'red',
-    warn: 'yellow',
-    info: 'blue',
-  },
+const logLevelColors = {
+  error: 'red',
+  warn: 'yellow',
+  info: 'blue',
 };
 
-// Add colors to the logger
-addColors(logLevels.colors);
+// Register colors
+addColors(logLevelColors);
 
-// Custom logging formatter
+const capitalizeLevel = format((info) => {
+  info.level = info.level.toUpperCase();
+  return info;
+});
+
 const logFormat = format.printf((info) => {
   return `{${info.timestamp}} - [${info.level}]: ${info.message}`;
 });
 
+/**
+ * Utilizes default levels
+ * (error -> warn -> info -> http -> verbose -> debug -> silly)
+ */
 const logger = createLogger({
-  levels: logLevels.levels,
   transports: [
     new transports.Console({
-      format: format.combine(format.colorize(), format.timestamp({ format: 'DD.MM.YY - HH:MM:SS' }), logFormat),
+      format: format.combine(
+        capitalizeLevel(),
+        format.colorize(),
+        format.timestamp({ format: 'DD.MM.YY - HH:MM:SS' }),
+        logFormat
+      ),
     }),
   ],
 });
