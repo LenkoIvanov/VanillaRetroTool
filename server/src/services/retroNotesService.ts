@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
 import { RetroNote, notesStorageSingleton } from '../singletons/RetroNotes.js';
 import type { RetroNoteData } from '../types/RetroNoteData.js';
 
 class RetroNotesService {
   addNewNote(request: RetroNoteData) {
-    console.log('Request', request);
     if (request.creatorId && request.topic && request.text) {
       const retroNote = new RetroNote(request.creatorId, request.text, request.topic);
       notesStorageSingleton.addNewNote(retroNote);
