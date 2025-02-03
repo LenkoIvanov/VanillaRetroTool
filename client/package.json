@@ -3,13 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.9.0",
+    "npm": ">=9.6.6"
+  },
   "scripts": {
     "dev": "vite",
     "concurrently": "concurrently \"vite\" \"node ../server/index.js\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint"
   },
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
     "vite": "^6.0.5"
   },
   "dependencies": {
