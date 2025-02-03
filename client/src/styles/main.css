@@ -1,0 +1,9 @@
+@import './reset.css';
+
+#sendBtn {
+  background: royalblue;
+  border: 1px solid inherit;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+}
