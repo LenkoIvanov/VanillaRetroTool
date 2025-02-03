@@ -2,18 +2,20 @@ const serverUrl = 'ws://localhost:8080';
 
 let socket;
 let statusDiv;
-let messageInput;
+let text;
+let topic;
+let creatorId;
 let sendBtn;
 let messagesList;
 const setup = () => {
   statusDiv = document.getElementById('status');
-  messageInput = document.getElementById('messageInput');
+  text = document.getElementById('text');
+  creatorId = document.getElementById('creatorId');
+  topic = document.getElementById('topic');
   sendBtn = document.getElementById('sendBtn');
   messagesList = document.getElementById('messages');
 
   sendBtn.addEventListener('click', sendMessage);
-  messageInput.addEventListener('keypress', inputMessage);
-
   openSocket(serverUrl);
 };
 
@@ -50,13 +52,28 @@ const readIncomingMessage = (e) => {
 };
 
 const sendMessage = () => {
-  const message = messageInput.value;
-  if (message.trim() !== '') {
-    socket.send(JSON.stringify({ message: message }));
-    messageInput.value = ''; // Clear input field
+  let creator = creatorId.value;
+  let topicVal = topic.value;
+  let retroNote = text.value;
+
+  if (
+    creator.trim() !== '' &&
+    topicVal.trim() !== '' &&
+    retroNote.trim() !== ''
+  ) {
+    socket.send(
+      JSON.stringify({
+        creatorId: creator,
+        topic: topicVal,
+        text: retroNote,
+      }),
+    );
+    retroNote = ''; // Clear input field
+    topicVal = '';
+    creator = '';
 
     const li = document.createElement('li');
-    li.textContent = `🟡 You: ${message}`;
+    li.textContent = `🟡 You: I'am ${creator}. Regarding topic "${topicVal}" I think that ${retroNote}`;
     messagesList.appendChild(li);
   }
 };
