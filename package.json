@@ -1,0 +1,19 @@
+{
+    "name": "vanilla-retro-tool",
+    "private": true,
+    "workspaces": [
+      "client",
+      "server"
+    ],
+    "scripts": {
+      "install:all": "npm install --workspaces",
+      "dev": "concurrently \"npm run dev --prefix client\" \"npm run serve --prefix server\"",
+      "format": "prettier --write .",
+      "lint": "eslint ."
+    },
+    "devDependencies": {
+      "prettier": "^3.0.0",
+      "eslint": "^8.0.0",
+      "concurrently": "^8.0.0"
+    }
+  }
