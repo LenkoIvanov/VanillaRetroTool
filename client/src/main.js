@@ -47,7 +47,7 @@ const closeConnection = () => {
 
 const readIncomingMessage = (e) => {
   const li = document.createElement('li');
-  li.textContent = `🔹 ${e.data}`;
+  li.textContent = `🔹 Server: ${e.data}`;
   messagesList.appendChild(li);
 };
 
@@ -68,12 +68,12 @@ const sendMessage = () => {
         text: retroNote,
       }),
     );
-    retroNote = ''; // Clear input field
-    topicVal = '';
-    creator = '';
 
     const li = document.createElement('li');
     li.textContent = `🟡 You: I'am ${creator}. Regarding topic "${topicVal}" I think that ${retroNote}`;
+    retroNote = ''; // Clear input field
+    topicVal = '';
+    creator = '';
     messagesList.appendChild(li);
   }
 };
