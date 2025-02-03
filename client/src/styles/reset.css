@@ -1,0 +1,47 @@
+/* Reset margins, paddings, and box-sizing */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default button styles */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Remove default anchor styling */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Ensure text is inheritable */
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove focus outline but keep accessibility */
+button,
+input,
+textarea {
+  outline: none;
+}
+
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid blue;
+}
