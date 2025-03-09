@@ -25,9 +25,13 @@
   background-color: var(--header-secondary);
 }
 
-.mainLayout {
+.main {
+  grid-area: main;
   height: 100%;
   padding: 2rem;
+}
+
+.mainLayout {
   display: grid;
   grid-template-rows: 3fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -38,31 +42,31 @@
 }
 
 .dropSection {
+  grid-area: drop;
   background-color: var(--drop-note-color);
   border: 5px dotted var(--border-color);
   height: 100%;
-  grid-area: drop;
 }
 
 .addSection {
+  grid-area: add;
   background-color: var(--add-note-color);
   border: 5px dotted var(--border-color);
   height: 100%;
-  grid-area: add;
 }
 
 .keepSection {
+  grid-area: keep;
   background-color: var(--keep-note-color);
   border: 5px dotted var(--border-color);
   height: 100%;
-  grid-area: keep;
 }
 
 .improveSection {
+  grid-area: improve;
   background-color: var(--improve-note-color);
   border: 5px dotted var(--border-color);
   height: 100%;
-  grid-area: improve;
 }
 
 .noteStore {
