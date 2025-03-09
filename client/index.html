@@ -6,20 +6,16 @@
     <title>WebSocket Client</title>
     <link rel="stylesheet" href="./src/styles/main.css" />
   </head>
-  <body>
-    <h1>WebSocket Client</h1>
-    <div id="status">🔴 Disconnected</div>
-    <input type="text" id="creatorId" placeholder="My name is..." />
-    <select name="topics" id="topic">
-      <option value="">--Choose a topic:--</option>
-      <option value="positive">Positive</option>
-      <option value="negative">Negative</option>
-      <option value="capibara">Capibara</option>
-    </select>
-    <input type="text" id="text" placeholder="Add a retro note..." />
-    <button id="sendBtn">Send</button>
-    <ul id="messages"></ul>
-
-    <script src="./src/main.js"></script>
+  <body class="bodyLayout">
+    <header class="header">JustAnotherRetro</header>
+    <section class="side">Sidebar</section>
+    <main class="main mainLayout">
+      <section class="dropSection"></section>
+      <section class="addSection"></section>
+      <section class="keepSection"></section>
+      <section class="improveSection"></section>
+      <section class="noteStore"></section>
+      <section class="workspace"></section>
+    </main>
   </body>
 </html>

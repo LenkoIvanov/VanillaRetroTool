@@ -1,9 +1,81 @@
 @import './reset.css';
+@import '../style.css';
+@import './design_tokens.css';
 
-#sendBtn {
-  background: royalblue;
-  border: 1px solid inherit;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  color: white;
+.bodyLayout {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 60px 1fr;
+  grid-template-areas:
+  "header header"
+  "side main";
 }
+
+.header {
+  height: 60px;
+  background-color: var(--header-main);
+  color: white;
+  grid-area: header;
+}
+
+.side {
+  height: 100%;
+  grid-area: side;
+  background-color: var(--header-secondary);
+}
+
+.mainLayout {
+  height: 100%;
+  padding: 2rem;
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+  grid-template-areas: 
+  "drop add keep improve"
+  "store store store workspace";
+}
+
+.dropSection {
+  background-color: var(--drop-note-color);
+  border: 5px dotted var(--border-color);
+  height: 100%;
+  grid-area: drop;
+}
+
+.addSection {
+  background-color: var(--add-note-color);
+  border: 5px dotted var(--border-color);
+  height: 100%;
+  grid-area: add;
+}
+
+.keepSection {
+  background-color: var(--keep-note-color);
+  border: 5px dotted var(--border-color);
+  height: 100%;
+  grid-area: keep;
+}
+
+.improveSection {
+  background-color: var(--improve-note-color);
+  border: 5px dotted var(--border-color);
+  height: 100%;
+  grid-area: improve;
+}
+
+.noteStore {
+  grid-area: store;
+  border: 5px dotted var(--border-color);
+  width: 100%;
+  height: 100%;
+}
+
+.workspace {
+  grid-area: workspace;
+  border: 5px dotted var(--border-color);
+  width: 100%;
+  height: 100%;
+}
+
