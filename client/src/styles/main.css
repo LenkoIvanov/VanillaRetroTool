@@ -14,16 +14,60 @@
 
 .header {
   height: 60px;
-  padding: 1rem; /* TODO: Handle header content later*/
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   background-color: var(--header-main);
   color: white;
   grid-area: header;
 }
 
+.headerTitle {
+  font-size: 1.4rem;
+}
+
 .side {
   height: 100%;
+  width: 60px;
   grid-area: side;
   background-color: var(--header-secondary);
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+}
+
+.retroBoardSection {
+  background-color: var(--header-secondary);
+  color: black;
+  padding: 1rem;
+  width: 60px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.retroTitle {
+  transform: rotate(-90deg);
+  font-size: 1.4rem;
+  width: 40px;
+  white-space: nowrap;
+}
+
+.myNotesSection {
+  background-color: var(--header-main);
+  color: white;
+  width: 60px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.notesTitle {
+  transform: rotate(-90deg);
+  font-size: 1.4rem;
+  width: 40px;
+  white-space: nowrap;
 }
 
 .main {
