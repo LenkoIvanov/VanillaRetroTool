@@ -6,23 +6,31 @@
     <title>WebSocket Client</title>
     <link rel="stylesheet" href="./src/styles/main.css" />
   </head>
-  <body class="bodyLayout">
-    <header class="header">
+  <body>
+    <header>
       <h1 class="headerTitle">JustAnotherRetro</h1>
     </header>
-    <section class="side">
+    <aside class="side">
       <div class="retroBoardSection">
-        <h1 class="retroTitle">Retro Board</h1>
+        <h2 class="retroTitle">Retro Board</h2>
       </div>
       <div class="myNotesSection">
-        <h1 class="notesTitle">My notes</h1>
+        <h2 class="notesTitle">My notes</h2>
       </div>
-    </section>
+    </aside>
     <main class="main mainLayout">
-      <section class="dropSection"><h1 class="dropHeading">Drop</h1></section>
-      <section class="addSection"><h1 class="addHeading">Add</h1></section>
-      <section class="keepSection"><h1 class="keepHeading">Keep</h1></section>
-      <section class="improveSection"><h1 class="improveHeading">Improve</h1></section>
+      <section class="noteSection dropSection">
+        <h2 class="sectionHeading dropHeading">Drop</h2>
+      </section>
+      <section class="noteSection addSection">
+        <h2 class="sectionHeading addHeading">Add</h2>
+      </section>
+      <section class="noteSection keepSection">
+        <h2 class="sectionHeading keepHeading">Keep</h2>
+      </section>
+      <section class="noteSection improveSection">
+        <h2 class="sectionHeading improveHeading">Improve</h2>
+      </section>
       <section class="noteStore"></section>
       <section class="workspace"></section>
     </main>

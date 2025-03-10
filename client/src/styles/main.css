@@ -2,7 +2,7 @@
 @import '../style.css';
 @import './design_tokens.css';
 
-.bodyLayout {
+body {
   height: 100vh;
   display: grid;
   grid-template-rows: 60px 1fr;
@@ -12,8 +12,8 @@
   "side main";
 }
 
-.header {
-  height: 60px;
+header {
+  height: 100%;
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -27,9 +27,9 @@
   font-size: 1.4rem;
 }
 
-.side {
+aside {
   height: 100%;
-  width: 60px;
+  width: 100%;
   grid-area: side;
   background-color: var(--header-secondary);
   display: grid;
@@ -38,9 +38,9 @@
 
 .retroBoardSection {
   background-color: var(--header-secondary);
+  width: 3.75rem;
   color: black;
   padding: 1rem;
-  width: 60px;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
@@ -48,15 +48,14 @@
 
 .retroTitle {
   transform: rotate(-90deg);
-  font-size: 1.4rem;
   width: 40px;
   white-space: nowrap;
 }
 
 .myNotesSection {
   background-color: var(--header-main);
+  width: 3.75rem;
   color: white;
-  width: 60px;
   padding: 1rem;
   display: flex;
   flex-direction: column-reverse;
@@ -65,7 +64,6 @@
 
 .notesTitle {
   transform: rotate(-90deg);
-  font-size: 1.4rem;
   width: 40px;
   white-space: nowrap;
 }
@@ -86,64 +84,48 @@
   "store store store workspace";
 }
 
-.dropSection {
-  grid-area: drop;
+.noteSection {
   position: relative;
   border: 5px dotted var(--border-color);
   border-radius: 15px;
   height: 100%;
 }
 
-.dropHeading {
-  position: absolute;
-  z-index: 100;
-  color: var(--drop-note-color);
-  top: -2.4rem;
+.dropSection {
+  grid-area: drop;
 }
 
 .addSection {
   grid-area: add;
-  position: relative;
-  border: 5px dotted var(--border-color);
-  border-radius: 15px;
-  height: 100%;
-}
-
-.addHeading {
-  position: absolute;
-  z-index: 100;
-  color: var(--add-note-color);
-  top: -2.4rem;
 }
 
 .keepSection {
   grid-area: keep;
-  position: relative;
-  border: 5px dotted var(--border-color);
-  border-radius: 15px;
-  height: 100%;
-}
-
-.keepHeading {
-  position: absolute;
-  z-index: 100;
-  color: var(--keep-note-color);
-  top: -2.4rem;
 }
 
 .improveSection {
   grid-area: improve;
-  position: relative;
-  border: 5px dotted var(--border-color);
-  border-radius: 15px;
-  height: 100%;
+}
+
+.sectionHeading {
+  position: absolute;
+  top: -2.4rem;
+}
+
+.dropHeading {
+  color: var(--drop-note-color);
+}
+
+.addHeading {
+  color: var(--add-note-color);
+}
+
+.keepHeading {
+  color: var(--keep-note-color);
 }
 
 .improveHeading {
-  position: absolute;
-  z-index: 100;
   color: var(--improve-note-color);
-  top: -2.4rem;
 }
 
 .noteStore {
