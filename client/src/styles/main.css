@@ -4,16 +4,10 @@
 
 body {
   height: 100vh;
-  display: grid;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 60px 1fr;
-  grid-template-areas:
-  "header header"
-  "side main";
 }
 
 header {
-  height: 100%;
+  height: 60px;
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -27,16 +21,25 @@ header {
   font-size: 1.4rem;
 }
 
-aside {
-  height: 100%;
-  width: 100%;
-  grid-area: side;
-  background-color: var(--header-secondary);
+main {
+  height: calc(100% - 60px);
   display: grid;
   grid-template-rows: 3fr 1fr;
+  grid-template-areas: 
+  "retroNotes"
+  "myNotes";
 }
 
-.retroBoardSection {
+.retroNotes {
+  grid-area: retroNotes;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 2rem;
+}
+
+.notesAside {
+  height: 100%;
+  width: 60px;
   background-color: var(--header-secondary);
   width: 3.75rem;
   color: black;
@@ -44,15 +47,36 @@ aside {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
+
+ .noteSectionTitle {
+    transform: rotate(-90deg);
+    width: 40px;
+    white-space: nowrap;
+  }
 }
 
-.retroTitle {
-  transform: rotate(-90deg);
-  width: 40px;
-  white-space: nowrap;
+.notesSection {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 3rem 2rem 2rem 2rem;
 }
 
-.myNotesSection {
+.noteColumn {
+  position: relative;
+  border: 5px dotted var(--border-color);
+  border-radius: 15px;
+  height: 100%;
+}
+
+.myNotes {
+  grid-area: myNotes;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 2rem;
+}
+
+.myAside {
   background-color: var(--header-main);
   width: 3.75rem;
   color: white;
@@ -60,84 +84,29 @@ aside {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
+
+  .mySectionTitle {
+    transform: rotate(-90deg);
+    width: 40px;
+    white-space: nowrap;
+  }
 }
 
-.notesTitle {
-  transform: rotate(-90deg);
-  width: 40px;
-  white-space: nowrap;
-}
-
-.main {
-  grid-area: main;
-  height: 100%;
-  padding: 3rem 2rem 2rem 3rem;
-}
-
-.mainLayout {
+.workspaceSection {
   display: grid;
-  grid-template-rows: 3fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 4fr 2fr;
   gap: 2rem;
-  grid-template-areas: 
-  "drop add keep improve"
-  "store store store workspace";
-}
-
-.noteSection {
-  position: relative;
-  border: 5px dotted var(--border-color);
-  border-radius: 15px;
-  height: 100%;
-}
-
-.dropSection {
-  grid-area: drop;
-}
-
-.addSection {
-  grid-area: add;
-}
-
-.keepSection {
-  grid-area: keep;
-}
-
-.improveSection {
-  grid-area: improve;
-}
-
-.sectionHeading {
-  position: absolute;
-  top: -2.4rem;
-}
-
-.dropHeading {
-  color: var(--drop-note-color);
-}
-
-.addHeading {
-  color: var(--add-note-color);
-}
-
-.keepHeading {
-  color: var(--keep-note-color);
-}
-
-.improveHeading {
-  color: var(--improve-note-color);
+  padding: 0rem 2rem 2rem 2rem;
 }
 
 .noteStore {
-  grid-area: store;
   border: 5px dotted var(--border-color);
   border-radius: 15px;
   width: 100%;
   height: 100%;
 }
-
+  
 .workspace {
-  grid-area: workspace;
   border: 5px dotted var(--border-color);
   border-radius: 15px;
   width: 100%;
