@@ -7,19 +7,92 @@
     <link rel="stylesheet" href="./src/styles/main.css" />
   </head>
   <body>
-    <h1>WebSocket Client</h1>
-    <div id="status">🔴 Disconnected</div>
-    <input type="text" id="creatorId" placeholder="My name is..." />
-    <select name="topics" id="topic">
-      <option value="">--Choose a topic:--</option>
-      <option value="positive">Positive</option>
-      <option value="negative">Negative</option>
-      <option value="capibara">Capibara</option>
-    </select>
-    <input type="text" id="text" placeholder="Add a retro note..." />
-    <button id="sendBtn">Send</button>
-    <ul id="messages"></ul>
-
-    <script src="./src/main.js"></script>
+    <header>
+      <div>
+        <h1>JustAnotherRetro</h1>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary">
+          <span>Icon</span>Participants
+        </button>
+        <button type="button" class="btn btn-user">A</button>
+      </div>
+    </header>
+    <main>
+      <section class="section section-board">
+        <aside><h2>Retro board</h2></aside>
+        <section class="board-col col-span-1 retro-category">
+          <header class="retro-category__title">Drop</header>
+          <section class="retro-category__content content-wrapper">
+            <article class="note note-danger">My first note</article>
+          </section>
+        </section>
+        <section class="board-col col-span-1 retro-category">
+          <header class="retro-category__title">Add</header>
+          <section class="retro-category__content content-wrapper">
+            <article class="note note-success">My second note</article>
+          </section>
+        </section>
+        <section class="board-col col-span-1 retro-category">
+          <header class="retro-category__title">Keep</header>
+          <section class="retro-category__content content-wrapper">
+            <article class="note note-info">My third note</article>
+          </section>
+        </section>
+        <section class="board-col col-span-1 retro-category">
+          <header class="retro-category__title">Improve</header>
+          <section class="retro-category__content content-wrapper">
+            <article class="note note-warning">My improve note</article>
+          </section>
+        </section>
+      </section>
+      <section class="section section-workspace">
+        <aside><h2>My notes</h2></aside>
+        <section class="board-col col-span-3 notes-toolbar content-wrapper">
+          <button>Publish all</button>
+          <div class="notes-toolbar__items">
+            <article class="note note-warning">My first note</article>
+            <article class="note note-success">My second note</article>
+            <article class="note note-danger">My third note</article>
+            <article class="note note-danger">My fourth note</article>
+            <article class="note note-info">My fifth note</article>
+            <article class="note note-warning">My sixed note</article>
+            <article class="note note-placeholder">
+              <button type="button">+</button>
+            </article>
+          </div>
+        </section>
+        <section class="board-col col-span-1 notes-editor content-wrapper">
+          <form class="note-form">
+            <fieldset class="note-form__categories">
+              <legend>Choose Category:</legend>
+              <label>
+                <input type="radio" name="category" value="drop" />
+                <span>DropIcon</span>
+              </label>
+              <label>
+                <input type="radio" name="category" value="add" />
+                <span>AddIcon</span>
+              </label>
+              <label>
+                <input type="radio" name="category" value="keep" />
+                <span>KeepIcon</span>
+              </label>
+              <label>
+                <input type="radio" name="category" value="improve" />
+                <span>ImproveIcon</span>
+              </label>
+            </fieldset>
+            <textarea
+              class="note-form__textarea"
+              name="note"
+              placeholder="Type anything here..."
+              required
+            ></textarea>
+            <button type="submit" class="note-form__submit">Add</button>
+          </form>
+        </section>
+      </section>
+    </main>
   </body>
 </html>
