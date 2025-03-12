@@ -3,23 +3,118 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebSocket Client</title>
-    <link rel="stylesheet" href="./src/styles/main.css" />
+    <title>JustAnotherRetro</title>
   </head>
   <body>
-    <h1>WebSocket Client</h1>
-    <div id="status">🔴 Disconnected</div>
-    <input type="text" id="creatorId" placeholder="My name is..." />
-    <select name="topics" id="topic">
-      <option value="">--Choose a topic:--</option>
-      <option value="positive">Positive</option>
-      <option value="negative">Negative</option>
-      <option value="capibara">Capibara</option>
-    </select>
-    <input type="text" id="text" placeholder="Add a retro note..." />
-    <button id="sendBtn">Send</button>
-    <ul id="messages"></ul>
-
-    <script src="./src/main.js"></script>
+    <div>
+      <div>
+        <div>JustAnotherRetro</div>
+        <div>
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-users"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+              <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+            </svg>
+            <div>Participants</div>
+          </button>
+          <span>A</span>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>Retro board</div>
+          <div>
+            <div>
+              <div>Drop</div>
+              <div>
+                <div>My first note</div>
+              </div>
+            </div>
+            <div>
+              <div>Add</div>
+              <div>
+                <div>My second note</div>
+              </div>
+            </div>
+            <div>
+              <div>Keep</div>
+              <div>
+                <div>My third note</div>
+              </div>
+            </div>
+            <div>
+              <div>Improve</div>
+              <div>
+                <div>My improve note</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>My notes</div>
+          <div>
+            <button>Publish all</button>
+            <div>
+              <span>My first note</span>
+              <span>My second note</span>
+              <span>My third note</span>
+              <span>My fourth note</span>
+              <span>My fifth note</span>
+              <span>My sixth note</span>
+              <div>
+                <button>+</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div>
+                <div>Choose Category:</div>
+                <div>
+                  <input type="radio" name="category" value="drop" />
+                  <div>DropIcon</div>
+                </div>
+                <div>
+                  <input type="radio" name="category" value="add" />
+                  <div>AddIcon</div>
+                </div>
+                <div>
+                  <input type="radio" name="category" value="keep" />
+                  <div>KeepIcon</div>
+                </div>
+                <div>
+                  <input type="radio" name="category" value="improve" />
+                  <div>ImproveIcon</div>
+                </div>
+              </div>
+              <div>
+                <textarea
+                  name="note"
+                  placeholder="Type anything here..."
+                  required
+                ></textarea>
+              </div>
+              <div>
+                <button>Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
