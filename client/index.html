@@ -7,19 +7,34 @@
     <link rel="stylesheet" href="./src/styles/main.css" />
   </head>
   <body>
-    <h1>WebSocket Client</h1>
-    <div id="status">🔴 Disconnected</div>
-    <input type="text" id="creatorId" placeholder="My name is..." />
-    <select name="topics" id="topic">
-      <option value="">--Choose a topic:--</option>
-      <option value="positive">Positive</option>
-      <option value="negative">Negative</option>
-      <option value="capibara">Capibara</option>
-    </select>
-    <input type="text" id="text" placeholder="Add a retro note..." />
-    <button id="sendBtn">Send</button>
-    <ul id="messages"></ul>
-
-    <script src="./src/main.js"></script>
+    <header>
+      <h1 class="headerTitle">JustAnotherRetro</h1>
+    </header>
+    <main>
+      <section class="retroNotes">
+        <aside class="notesAside">
+          <h2 class="noteSectionTitle">RetroBoard</h2>
+        </aside>
+        <section class="notesSection">
+          <section class="noteColumn">
+          </section>
+          <section class="noteColumn">
+          </section>
+          <section class="noteColumn">
+          </section>
+          <section class="noteColumn">
+          </section>
+        </section>
+      </section>
+      <section class="myNotes">
+        <aside class="myAside">
+          <h2 class="mySectionTitle">My notes</h2>
+        </aside>
+        <section class="workspaceSection">
+          <section class="noteStore"></section>
+          <section class="workspace"></section>
+        </section>
+      </section>
+    </main>
   </body>
 </html>

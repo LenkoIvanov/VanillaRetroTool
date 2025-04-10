@@ -1,0 +1,11 @@
+@import "../style.css";
+
+:root {
+    --border-color: var(--light-gray);
+    --drop-note-color: var(--base-red);
+    --add-note-color: var(--base-green);
+    --keep-note-color: var(--base-blue);
+    --improve-note-color: var(--base-yellow);
+    --header-main: var(--dark-blue);
+    --header-secondary: var(--light-blue);
+}
