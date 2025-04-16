@@ -1,5 +1,6 @@
-/* Reset margins, paddings, and box-sizing */
-*,
+/* Reset margins,
+paddings,
+and box-sizing */
 *::before,
 *::after {
   margin: 0;
