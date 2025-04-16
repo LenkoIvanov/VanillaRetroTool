@@ -1,0 +1,21 @@
+:root {
+  --base-blue: #0097b2;
+  --base-red: #ff3131;
+  --base-green: #00bf63;
+  --base-yellow: #ffbd59;
+  --dark-blue: #07193a;
+  --light-blue: #b1eaf4;
+  --light-gray: #cdcdcd;
+  --white: #ffffff;
+
+  /* Context tokens */
+  --clr-info: var(--base-blue);
+  --clr-danger: var(--base-red);
+  --clr-success: var(--base-green);
+  --clr-warning: var(--base-yellow);
+  --clr-primary: var(--dark-blue);
+  --clr-secondary: var(--light-blue);
+  --clr-tertiary: var(--light-gray);
+  --clr-bg-danger: rgba(255, 49, 49, 0.42);
+  --clr-bg-success: rgba(0, 191, 99, 0.42);
+}

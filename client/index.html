@@ -3,23 +3,168 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebSocket Client</title>
-    <link rel="stylesheet" href="./src/styles/main.css" />
+    <title>JustAnotherRetro</title>
+    <link rel="stylesheet" href="./src/styles/index.css" />
   </head>
   <body>
-    <h1>WebSocket Client</h1>
-    <div id="status">🔴 Disconnected</div>
-    <input type="text" id="creatorId" placeholder="My name is..." />
-    <select name="topics" id="topic">
-      <option value="">--Choose a topic:--</option>
-      <option value="positive">Positive</option>
-      <option value="negative">Negative</option>
-      <option value="capibara">Capibara</option>
-    </select>
-    <input type="text" id="text" placeholder="Add a retro note..." />
-    <button id="sendBtn">Send</button>
-    <ul id="messages"></ul>
-
-    <script src="./src/main.js"></script>
+    <header>
+      <h1>JustAnotherRetro</h1>
+      <ul class="navbar-menu">
+        <li>
+          <button type="button" class="btn btn-primary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-users"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+              <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+            </svg>
+            Participants
+          </button>
+        </li>
+        <li><button type="button" class="btn btn-user">A</button></li>
+      </ul>
+    </header>
+    <main>
+      <section class="section section-board row-span-2">
+        <h2 class="section__title">Retro board</h2>
+        <div class="board">
+          <section class="board-col retro-category">
+            <header class="retro-category__title"><h3>Drop</h3></header>
+            <section class="retro-category__content content-wrapper">
+              <article class="note note-danger">
+                <p>My first note. What if I am a long note?</p>
+                <div class="note-actions">
+                  <button class="btn btn-round delete">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M4 7l16 0" />
+                      <path d="M10 11l0 6" />
+                      <path d="M14 11l0 6" />
+                      <path
+                        d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
+                      />
+                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </svg>
+                  </button>
+                  <button class="btn btn-round edit">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-edit"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path
+                        d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+                      />
+                      <path
+                        d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+                      />
+                      <path d="M16 5l3 3" />
+                    </svg>
+                  </button>
+                </div>
+              </article>
+            </section>
+          </section>
+          <section class="board-col retro-category">
+            <header class="retro-category__title"><h3>Add</h3></header>
+            <section class="retro-category__content content-wrapper">
+              <article class="note note-success">My second note</article>
+            </section>
+          </section>
+          <section class="board-col retro-category">
+            <header class="retro-category__title"><h3>Keep</h3></header>
+            <section class="retro-category__content content-wrapper">
+              <article class="note note-info">My third note</article>
+            </section>
+          </section>
+          <section class="board-col retro-category">
+            <header class="retro-category__title"><h3>Improve</h3></header>
+            <section class="retro-category__content content-wrapper">
+              <article class="note note-warning">My improve note</article>
+            </section>
+          </section>
+        </div>
+      </section>
+      <section class="section section-workspace">
+        <h2 class="section__title">My notes</h2>
+        <div class="board">
+          <section class="board-col col-span-3 notes-toolbar content-wrapper">
+            <button>Publish all</button>
+            <div class="notes-toolbar__items">
+              <article class="note note-warning">My first note</article>
+              <article class="note note-success">My second note</article>
+              <article class="note note-danger">My third note</article>
+              <article class="note note-danger">My fourth note</article>
+              <article class="note note-info">My fifth note</article>
+              <article class="note note-warning">My sixed note</article>
+              <article class="note note-placeholder">
+                <button type="button">+</button>
+              </article>
+            </div>
+          </section>
+          <section class="board-col col-span-1 notes-editor content-wrapper">
+            <form class="note-form">
+              <fieldset class="note-form__categories">
+                <legend>Choose Category:</legend>
+                <label>
+                  <input type="radio" name="category" value="drop" />
+                  <span>DropIcon</span>
+                </label>
+                <label>
+                  <input type="radio" name="category" value="add" />
+                  <span>AddIcon</span>
+                </label>
+                <label>
+                  <input type="radio" name="category" value="keep" />
+                  <span>KeepIcon</span>
+                </label>
+                <label>
+                  <input type="radio" name="category" value="improve" />
+                  <span>ImproveIcon</span>
+                </label>
+              </fieldset>
+              <textarea
+                class="note-form__textarea"
+                name="note"
+                placeholder="Type anything here..."
+                required
+              ></textarea>
+              <button class="note-form__submit">Add</button>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
