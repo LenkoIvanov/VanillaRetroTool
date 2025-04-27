@@ -89,5 +89,33 @@ body {
 .retro-category__content {
     border: 5px dotted var(--clr-tertiary);
     border-radius: 15px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.note {
+    width: 100%;
+    height: 150px;
     padding: 5px;
+    justify-self: center;
+    font-weight: bold;
+    position: relative;
+}
+
+.note-danger {
+    background-color: var(--clr-bg-danger);
+}
+
+.note-success {
+    background-color: var(--clr-bg-success);
+}
+
+.note-info {
+    background-color: var(--clr-bg-keep);
+}
+
+.note-warning {
+    background-color: var(--clr-bg-improve);
 }

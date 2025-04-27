@@ -18,4 +18,7 @@
   --clr-tertiary: var(--light-gray);
   --clr-bg-danger: rgba(255, 49, 49, 0.42);
   --clr-bg-success: rgba(0, 191, 99, 0.42);
+  --clr-bg-keep: rgba(0, 151, 178);
+  --clr-bg-improve: rgba(255, 189, 89);
+
 }
