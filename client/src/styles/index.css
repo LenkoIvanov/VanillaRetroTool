@@ -33,7 +33,6 @@ body {
     justify-content: center;
     font-weight: bold;
     cursor: pointer;
-    margin-right: 1rem;
 }
 
 .btn-primary {
@@ -41,6 +40,7 @@ body {
     padding: 3px 5px;
     color: white;
     border: 1px solid transparent;
+    margin-right: 1rem;
 }
 
 .btn-primary:hover { 
@@ -52,6 +52,7 @@ body {
     width: 2rem;
     height: 2rem;
     background-color: var(--clr-secondary);
+    margin-right: 1rem;
 }
 
 .main {
@@ -119,3 +120,27 @@ body {
 .note-warning {
     background-color: var(--clr-bg-improve);
 }
+
+.note-actions {
+    position: absolute;
+    top: 135px;
+    left: 75px;
+    display: flex;
+}
+
+.btn-round {
+    color: var(--white);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+
+}
+
+.delete {
+    background-color: var(--base-red);
+}
+
+.edit {
+    background-color: var(--base-yellow);
+}
+
