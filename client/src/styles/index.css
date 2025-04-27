@@ -144,3 +144,40 @@ body {
     background-color: var(--base-yellow);
 }
 
+.section-workspace > .section__title__wrapper {
+    color: white;
+    background-color: var(--clr-primary)
+}
+
+.notes-toolbar {
+    grid-column: 3 span;
+    padding: 10px;
+}
+
+
+.notes-toolbar > button {
+   display: block;
+   margin-left: auto;
+   margin-bottom: 1rem;
+   font-size: 1.4rem;
+}
+
+
+.notes-toolbar__items {
+    display: flex;
+    gap: 1rem;
+}
+
+.note-placeholder {
+    border: 5px dotted var(--black);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.note-placeholder > button {
+    font-size: 5rem;
+    width: 100%;
+}
+
+
