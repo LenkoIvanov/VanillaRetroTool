@@ -1,2 +1,51 @@
 @import './reset.css';
 @import './design-tokens/design-tokens.css';
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    height: 3rem;
+    background-color: var(--clr-primary);
+    color: var(--white);
+}
+
+.header > h1 {
+    font-size: 1.6rem;
+}
+
+.navbar-menu {
+  display: flex;
+}
+
+.navbar-menu > li {
+    display: inline-block;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.btn-primary {
+    font-size: 1rem;
+    padding: 3px 5px;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.btn-primary:hover { 
+    border-color: white;
+}
+
+.btn-user {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--clr-secondary);
+}
