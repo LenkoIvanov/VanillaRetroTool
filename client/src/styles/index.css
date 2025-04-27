@@ -1,6 +1,10 @@
 @import './reset.css';
 @import './design-tokens/design-tokens.css';
 
+body {
+    height: 100vh;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -48,4 +52,42 @@
     width: 2rem;
     height: 2rem;
     background-color: var(--clr-secondary);
+}
+
+.main {
+    height: calc(100% - 3rem);
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+.section {
+    display: grid;
+    grid-template-columns: 35px 1fr;
+}
+
+.section__title__wrapper {
+    align-content: end;
+    padding: 5px 10px;
+}
+
+.section-board >  .section__title__wrapper {
+    background-color: var(--clr-secondary);
+}
+
+.section__title {
+    text-wrap: nowrap;
+    transform: rotate(-90deg);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.retro-category__content {
+    border: 5px dotted var(--clr-tertiary);
+    border-radius: 15px;
+    padding: 5px;
 }
