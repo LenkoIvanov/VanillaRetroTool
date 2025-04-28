@@ -160,6 +160,7 @@ body {
 .notes-toolbar {
     grid-column: 3 span;
     padding: 1rem;
+    overflow: hidden;
 }
 
 
@@ -174,6 +175,7 @@ body {
 .notes-toolbar__items {
     display: flex;
     gap: 1rem;
+    overflow-x: scroll;
 }
 
 .note-placeholder {

@@ -46,5 +46,5 @@ textarea {
 button:focus,
 input:focus,
 textarea:focus {
-  outline: 2px solid blue;
+  outline: none;
 }
