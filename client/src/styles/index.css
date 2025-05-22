@@ -4,12 +4,13 @@
 body {
     height: 100vh;
     --note-width: 150px;
+    --text-area-height: 150px;
 
    > header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;
+        padding: 0.6rem;
         height: 3rem;
         background-color: var(--clr-primary);
         color: var(--white);
@@ -25,10 +26,6 @@ body {
   display: flex;
 }
 
-.navbar-menu > li {
-    display: inline-block;
-}
-
 .btn {
     display: flex;
     align-items: center;
@@ -39,14 +36,14 @@ body {
 
 .btn-primary {
     font-size: 1rem;
-    padding: 3px 5px;
-    color: white;
+    padding: 0.2rem 0.3rem;
+    color: var(--white);
     border: 1px solid transparent;
     margin-right: 1rem;
 }
 
 .btn-primary:hover { 
-    border-color: white;
+    border-color: var(--white);
 }
 
 .btn-user {
@@ -65,12 +62,12 @@ main {
 
 .section {
     display: grid;
-    grid-template-columns: 35px 1fr;
+    grid-template-columns: 2.125rem 1fr;
 }
 
 .section__title__wrapper {
     align-content: end;
-    padding: 5px 10px;
+    padding: 0.3rem 0.6rem;
 }
 
 .section-board >  .section__title__wrapper {
@@ -91,7 +88,7 @@ main {
 
 .content-wrapper {
     border: 5px dotted var(--clr-tertiary);
-    border-radius: 15px;
+    border-radius: 1rem;
 }
 
 .retro-category {
@@ -110,10 +107,11 @@ main {
     grid-template-rows: repeat(auto-fit, var(--note-width));
     gap: 1rem;
     flex-grow: 1;
+    overflow-y: auto;
 }
 
 .note {
-    padding: 5px;
+    padding: 0.3rem;
     font-weight: bold;
     position: relative;
     aspect-ratio: 1/1;
@@ -137,16 +135,16 @@ main {
 
 .note-actions {
     position: absolute;
-    top: 90%;
-    left: 65%;
+    top: 8.375rem;
+    left: 6rem;
     display: flex;
 }
 
 .btn-round {
     color: var(--white);
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
 
 }
 
@@ -159,7 +157,7 @@ main {
 }
 
 .section-workspace > .section__title__wrapper {
-    color: white;
+    color: var(--white);
     background-color: var(--clr-primary)
 }
 
@@ -192,7 +190,7 @@ main {
 
 .note-placeholder {
     border: 5px dotted var(--black);
-    border-radius: 15px;
+    border-radius: 1rem;
     display: flex;
     justify-content: center;
 }
@@ -203,7 +201,7 @@ main {
 }
 
 .note-form {
-    padding: 5px;
+    padding: 0.3rem;
     position: relative;
 }
 
@@ -215,14 +213,14 @@ main {
     margin-top: 0.6rem;
     border: none;
     width: 100%;
-    height: 150px;
+    height: var(--text-area-height);
 }
 
 .note-form__submit {
-    font-size: 16px;
+    font-size: 1rem;
     position: absolute;
     left: 85%;
-    top: 5px;
+    top: 0.3rem;
 }
 
 
