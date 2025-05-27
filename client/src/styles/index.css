@@ -24,6 +24,7 @@ body {
 
 .navbar-menu {
   display: flex;
+  align-items: center;
 }
 
 .btn {
@@ -97,7 +98,13 @@ main {
 }
 
 .retro-category__title {
+    display: flex;
+    align-items: center;
     height: 2rem;
+
+    > h3 {
+        margin-left: 0.3rem;
+    }
 }
 
 .retro-category__content {
