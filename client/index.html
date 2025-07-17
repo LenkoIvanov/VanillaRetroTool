@@ -6,6 +6,7 @@
     <title>JustAnotherRetro</title>
     <link rel="stylesheet" href="./src/styles/index.css" />
     <script src="./src/scripts/loadFA.js" type="module"></script>
+    <script src="./src/test.js" type="module"></script>
   </head>
   <body>
     <header>
@@ -31,7 +32,10 @@
               <i class="fa-regular fa-circle-xmark"></i>
               <h3>Drop</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="drop-section"
+            >
               <article class="note note-danger">
                 <p>My first note. What if I am a long note?</p>
                 <div class="note-actions">
@@ -72,7 +76,10 @@
               <i class="fa-regular fa-square-plus"></i>
               <h3>Add</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="add-section"
+            >
               <article class="note note-success">
                 <p>My second note</p>
                 <div class="note-actions">
@@ -102,7 +109,10 @@
               <i class="fa-regular fa-star"></i>
               <h3>Keep</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="keep-section"
+            >
               <article class="note note-info">My third note</article>
             </section>
           </section>
@@ -111,7 +121,10 @@
               <i class="fa-regular fa-lightbulb"></i>
               <h3>Improve</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="improve-section"
+            >
               <article class="note note-warning">My improve note</article>
             </section>
           </section>
