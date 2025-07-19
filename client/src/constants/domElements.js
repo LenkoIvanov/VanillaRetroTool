@@ -23,7 +23,16 @@ export const dropSectionAttr = "[data-noteColumn='drop-section']";
 export const addSectionAttr = "[data-noteColumn='add-section']";
 export const keepSectionAttr = "[data-noteColumn='keep-section']";
 export const improveSectionAttr = "[data-noteColumn='improve-section']";
+export const unpublishedNotesAttr = "[data-section='unpublished-notes']";
 
 export const getNoteIdAttribute = (noteId) => `[data-noteId='${noteId}']`;
 export const getNoteCreatorIdAttribute = (creatorId) =>
   `[data-noteCreator='${creatorId}']`;
+
+// ids
+export const newNoteFormId = 'create-note-form';
+export const placeholderNote = 'placeholder-note';
+
+// form fields
+export const formNoteTopic = 'topic';
+export const formNoteContent = 'note-content';

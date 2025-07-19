@@ -21,6 +21,34 @@ import {
   noteKeepClass,
 } from '../constants/domElements';
 
+export const createWipNote = (text, topic) => {
+  const newNote = document.createElement('article');
+  newNote.classList.add(noteClass);
+
+  switch (topic) {
+    case 'drop':
+      newNote.classList.add(noteDropClass);
+      break;
+    case 'add':
+      newNote.classList.add(noteAddClass);
+      break;
+    case 'keep':
+      newNote.classList.add(noteKeepClass);
+      break;
+    case 'improve':
+      newNote.classList.add(noteImproveClass);
+      break;
+    default:
+      break;
+  }
+
+  const noteContent = document.createElement('p');
+  noteContent.textContent = text;
+  newNote.appendChild(noteContent);
+
+  return newNote;
+};
+
 export const createNewNote = (creatorId, noteId, topic, text) => {
   const newNote = document.createElement('article');
   newNote.classList.add(noteClass);

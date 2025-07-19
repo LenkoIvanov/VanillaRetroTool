@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./src/styles/index.css" />
     <script src="./src/scripts/loadFA.js" type="module"></script>
     <script src="./src/test.js" type="module"></script>
+    <script src="./src/main.js" type="module"></script>
   </head>
   <body>
     <header>
@@ -140,48 +141,69 @@
               <i class="fa-regular fa-paper-plane"></i>
               Publish all
             </button>
-            <div class="notes-toolbar__items">
-              <article class="note note-warning">My first note</article>
-              <article class="note note-success">My second note</article>
-              <article class="note note-danger">My third note</article>
-              <article class="note note-danger">My fourth note</article>
-              <article class="note note-info">My fifth note</article>
-              <article class="note note-warning">My sixed note</article>
-              <article class="note note-warning">My sixed note</article>
-              <article class="note note-warning">My sixed note</article>
-              <article class="note note-placeholder">
+            <div class="notes-toolbar__items" data-section="unpublished-notes">
+              <article class="note note-placeholder" id="placeholder-note">
                 <button type="button">+</button>
               </article>
             </div>
           </section>
           <section class="board-col col-span-1 notes-editor content-wrapper">
-            <form class="note-form">
-              <fieldset class="note-form__categories">
+            <form
+              class="note-form"
+              id="create-note-form"
+              name="create-note-form"
+              method="post"
+            >
+              <fieldset name="note-type" class="note-form__categories">
                 <legend>Choose Category:</legend>
-                <label>
-                  <input type="radio" name="category" value="drop" />
+                <label for="drop-option">
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="drop-option"
+                    value="drop"
+                    required
+                  />
                   <i class="fa-regular fa-circle-xmark"></i>
                 </label>
-                <label>
-                  <input type="radio" name="category" value="add" />
+                <label for="add-option">
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="add-option"
+                    value="add"
+                    required
+                  />
                   <i class="fa-regular fa-square-plus"></i>
                 </label>
-                <label>
-                  <input type="radio" name="category" value="keep" />
+                <label for="keep-option">
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="keep-option"
+                    value="keep"
+                    required
+                  />
                   <i class="fa-regular fa-star"></i>
                 </label>
-                <label>
-                  <input type="radio" name="category" value="improve" />
+                <label for="improve-option">
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="improve-option"
+                    value="improve"
+                    required
+                  />
                   <i class="fa-regular fa-lightbulb"></i>
                 </label>
               </fieldset>
               <textarea
                 class="note-form__textarea"
-                name="note"
+                name="note-content"
                 placeholder="Type anything here..."
                 required
               ></textarea>
-              <button class="note-form__submit">
+              <button class="note-form__submit" type="submit">
                 <i class="fa-regular fa-note-sticky"></i>
                 Add
               </button>
