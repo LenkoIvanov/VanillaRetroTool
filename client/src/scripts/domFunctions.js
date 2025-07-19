@@ -121,6 +121,18 @@ export const appendCreatedNote = (newNote, topic) => {
   }
 };
 
+export const emptyAllNoteSections = () => {
+  const dropSection = document.querySelector(dropSectionAttr);
+  const addSection = document.querySelector(addSectionAttr);
+  const keepSection = document.querySelector(keepSectionAttr);
+  const improveSection = document.querySelector(improveSectionAttr);
+
+  dropSection.innerHTML = '';
+  addSection.innerHTML = '';
+  keepSection.innerHTML = '';
+  improveSection.innerHTML = '';
+};
+
 export const deleteNote = (noteId) => {
   const noteToDelete = document.querySelector(getNoteIdAttribute(noteId));
   noteToDelete.remove();
