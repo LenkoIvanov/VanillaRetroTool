@@ -1,10 +1,12 @@
 import { RetroNote, notesStorageSingleton } from '../singletons/RetroNotes.js';
-import type { RetroNoteData } from '../types/RetroNoteData.js';
+import { v4 as uuidv4 } from 'uuid';
+import type {  RetroNotePayload } from '../types/RetroNoteData.js';
 
 class RetroNotesService {
-  addNewNote(request: RetroNoteData) {
+  addNewNote(request: RetroNotePayload) {
     if (request.creatorId && request.topic && request.text) {
-      const retroNote = new RetroNote(request.creatorId, request.text, request.topic);
+      const noteId = uuidv4();
+      const retroNote = new RetroNote(noteId, request.creatorId, request.text, request.topic);
       notesStorageSingleton.addNewNote(retroNote);
     }
   }

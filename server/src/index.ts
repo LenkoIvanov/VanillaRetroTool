@@ -3,7 +3,7 @@ import { WebSocketServer } from 'ws';
 import { wssConfig } from './configs/socketServerConfig.js';
 import { wssManager } from './singletons/WebSocketManager.js';
 import { retroNotesService } from './services/retroNotesService.js';
-import type { RetroNoteData } from './types/RetroNoteData.js';
+import type { RetroNotePayload } from './types/RetroNoteData.js';
 import logger from './singletons/logger.js';
 
 const wss = new WebSocketServer(wssConfig);
@@ -16,7 +16,7 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function message(data) {
     try {
-      wssManager.receiveDataFromConnection(data.toString(), (parsed: RetroNoteData) => {
+      wssManager.receiveDataFromConnection(data.toString(), (parsed: RetroNotePayload) => {
         logger.info('Received a new note');
         retroNotesService.addNewNote(parsed);
       });

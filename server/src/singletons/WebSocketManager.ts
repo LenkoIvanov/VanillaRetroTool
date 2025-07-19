@@ -1,5 +1,5 @@
 import { WebSocket } from 'ws';
-import type { RetroNoteData } from '../types/RetroNoteData.js';
+import type { RetroNotePayload } from '../types/RetroNoteData.js';
 import { parseRetroNote } from '../helpers/retroNotesHelper.js';
 import logger from './logger.js';
 
@@ -45,7 +45,7 @@ class WebSocketManager {
     }
   }
 
-  receiveDataFromConnection(data: string, callback: (parsedData: RetroNoteData) => void) {
+  receiveDataFromConnection(data: string, callback: (parsedData: RetroNotePayload) => void) {
     const newRetroNote = parseRetroNote(data);
     callback(newRetroNote);
   }
