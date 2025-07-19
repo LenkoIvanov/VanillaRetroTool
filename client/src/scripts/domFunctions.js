@@ -1,19 +1,42 @@
+import {
+  actionsContainerClass,
+  addSectionAttr,
+  btnClass,
+  btnDeleteClass,
+  btnEditClass,
+  btnRoundClass,
+  creatorIdAttrName,
+  dropSectionAttr,
+  faPen,
+  faRegular,
+  faTrash,
+  getNoteIdAttribute,
+  improveSectionAttr,
+  keepSectionAttr,
+  noteAddClass,
+  noteClass,
+  noteDropClass,
+  noteIdAttrName,
+  noteImproveClass,
+  noteKeepClass,
+} from '../constants/domElements';
+
 export const createNewNote = (creatorId, noteId, topic, text) => {
   const newNote = document.createElement('article');
-  newNote.classList.add('note');
+  newNote.classList.add(noteClass);
 
   switch (topic) {
     case 'drop':
-      newNote.classList.add('note-danger');
+      newNote.classList.add(noteDropClass);
       break;
     case 'add':
-      newNote.classList.add('note-success');
+      newNote.classList.add(noteAddClass);
       break;
     case 'keep':
-      newNote.classList.add('note-info');
+      newNote.classList.add(noteKeepClass);
       break;
     case 'improve':
-      newNote.classList.add('note-warning');
+      newNote.classList.add(noteImproveClass);
       break;
     default:
       break;
@@ -22,24 +45,24 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
   const noteContent = document.createElement('p');
   noteContent.textContent = text;
   newNote.appendChild(noteContent);
-  newNote.setAttribute('data-noteCreator', creatorId);
-  newNote.setAttribute('data-noteId', noteId);
+  newNote.setAttribute(creatorIdAttrName, creatorId);
+  newNote.setAttribute(noteIdAttrName, noteId);
 
   const actionsContainer = document.createElement('div');
-  actionsContainer.classList.add('note-actions');
+  actionsContainer.classList.add(actionsContainerClass);
   newNote.append(actionsContainer);
 
   const deleteButton = document.createElement('button');
-  deleteButton.classList.add('btn', 'btn-round', 'delete');
+  deleteButton.classList.add(btnClass, btnRoundClass, btnDeleteClass);
   const deleteContent = document.createElement('i');
-  deleteContent.classList.add('fa-regular', 'fa-trash-can');
+  deleteContent.classList.add(faRegular, faTrash);
   deleteButton.appendChild(deleteContent);
   actionsContainer.appendChild(deleteButton);
 
   const editButton = document.createElement('button');
-  editButton.classList.add('btn', 'btn-round', 'edit');
+  editButton.classList.add(btnClass, btnRoundClass, btnEditClass);
   const editContent = document.createElement('i');
-  editContent.classList.add('fa-regular', 'fa-pen-to-square');
+  editContent.classList.add(faRegular, faPen);
   editButton.appendChild(editContent);
   actionsContainer.appendChild(editButton);
 
@@ -47,16 +70,10 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
 };
 
 export const appendCreatedNote = (newNote, topic) => {
-  const dropSection = document.querySelector(
-    "[data-noteColumn='drop-section']",
-  );
-  const addSection = document.querySelector("[data-noteColumn='add-section']");
-  const keepSection = document.querySelector(
-    "[data-noteColumn='keep-section']",
-  );
-  const improveSection = document.querySelector(
-    "[data-noteColumn='improve-section']",
-  );
+  const dropSection = document.querySelector(dropSectionAttr);
+  const addSection = document.querySelector(addSectionAttr);
+  const keepSection = document.querySelector(keepSectionAttr);
+  const improveSection = document.querySelector(improveSectionAttr);
 
   switch (topic) {
     case 'drop':
@@ -77,7 +94,7 @@ export const appendCreatedNote = (newNote, topic) => {
 };
 
 export const deleteNote = (noteId) => {
-  const noteToDelete = document.querySelector(`[data-noteId='${noteId}']`);
+  const noteToDelete = document.querySelector(getNoteIdAttribute(noteId));
   noteToDelete.remove();
 };
 
