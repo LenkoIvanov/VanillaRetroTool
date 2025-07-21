@@ -8,6 +8,8 @@ export const openSocket = (onIncomingMessage) => {
   socket.addEventListener('error', (err) => {
     console.error('WebSocket error:', err);
   });
+
+  return socket;
 };
 
 const openConnection = () => {

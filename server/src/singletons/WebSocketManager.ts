@@ -45,7 +45,7 @@ class WebSocketManager {
     }
   }
 
-  receiveDataFromConnection(data: string, callback: (parsedData: RetroNotePayload) => void) {
+  receiveDataFromConnection(data: string, callback: (parsedData: RetroNotePayload | RetroNotePayload[]) => void) {
     const newRetroNote = parseRetroNote(data);
     callback(newRetroNote);
   }

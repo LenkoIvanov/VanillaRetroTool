@@ -16,9 +16,13 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function message(data) {
     try {
-      wssManager.receiveDataFromConnection(data.toString(), (parsed: RetroNotePayload) => {
+      wssManager.receiveDataFromConnection(data.toString(), (parsed: RetroNotePayload | RetroNotePayload[]) => {
         logger.info('Received a new note');
-        retroNotesService.addNewNote(parsed);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((payload) => retroNotesService.addNewNote(payload));
+        } else {
+          retroNotesService.addNewNote(parsed);
+        }
       });
       const payload = JSON.stringify(retroNotesService.getAllNotes());
       logger.info('Broadcasting payload');

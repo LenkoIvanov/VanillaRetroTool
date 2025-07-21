@@ -3,6 +3,7 @@ import {
   formNoteTopic,
   newNoteFormId,
   placeholderNote,
+  publishNotesBtnAttr,
   unpublishedNotesAttr,
 } from './constants/domElements';
 import {
@@ -33,7 +34,22 @@ const onBroadcastReceive = (ev) => {
   }
 };
 
-openSocket(onBroadcastReceive);
+const expungeOldUnpublishedNotes = () => {
+  const unpublishedSection = document.querySelector(unpublishedNotesAttr);
+  const childNotes = Array.from(
+    unpublishedSection.getElementsByTagName('article'),
+  );
+
+  for (const child of childNotes) {
+    if (!child.classList.contains('note-placeholder')) {
+      unpublishedSection.removeChild(child);
+    }
+  }
+
+  notesToSubmit.length = 0;
+};
+
+const socketInstance = openSocket(onBroadcastReceive);
 
 const newNoteForm = document.getElementById(newNoteFormId);
 newNoteForm.addEventListener('submit', (ev) => {
@@ -58,4 +74,11 @@ const placeholderBtn = document.getElementById(placeholderNote);
 placeholderBtn.addEventListener('click', () => {
   // TODO --> Refactor to improve readability
   newNoteForm.elements[5].focus();
+});
+
+const publishBtn = document.querySelector(publishNotesBtnAttr);
+publishBtn.addEventListener('click', () => {
+  const serializeNotes = JSON.stringify(notesToSubmit);
+  socketInstance.send(serializeNotes);
+  expungeOldUnpublishedNotes();
 });
