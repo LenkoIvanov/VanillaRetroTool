@@ -25,22 +25,8 @@ export const createWipNote = (text, topic) => {
   const newNote = document.createElement('article');
   newNote.classList.add(noteClass);
 
-  switch (topic) {
-    case 'drop':
-      newNote.classList.add(noteDropClass);
-      break;
-    case 'add':
-      newNote.classList.add(noteAddClass);
-      break;
-    case 'keep':
-      newNote.classList.add(noteKeepClass);
-      break;
-    case 'improve':
-      newNote.classList.add(noteImproveClass);
-      break;
-    default:
-      break;
-  }
+  const noteTypeClass = getNoteTypeClass(topic);
+  newNote.classList.add(noteTypeClass);
 
   const noteContent = document.createElement('p');
   noteContent.textContent = text;
@@ -53,22 +39,8 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
   const newNote = document.createElement('article');
   newNote.classList.add(noteClass);
 
-  switch (topic) {
-    case 'drop':
-      newNote.classList.add(noteDropClass);
-      break;
-    case 'add':
-      newNote.classList.add(noteAddClass);
-      break;
-    case 'keep':
-      newNote.classList.add(noteKeepClass);
-      break;
-    case 'improve':
-      newNote.classList.add(noteImproveClass);
-      break;
-    default:
-      break;
-  }
+  const noteTypeClass = getNoteTypeClass(topic);
+  newNote.classList.add(noteTypeClass);
 
   const noteContent = document.createElement('p');
   noteContent.textContent = text;
@@ -76,23 +48,8 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
   newNote.setAttribute(creatorIdAttrName, creatorId);
   newNote.setAttribute(noteIdAttrName, noteId);
 
-  const actionsContainer = document.createElement('div');
-  actionsContainer.classList.add(actionsContainerClass);
-  newNote.append(actionsContainer);
-
-  const deleteButton = document.createElement('button');
-  deleteButton.classList.add(btnClass, btnRoundClass, btnDeleteClass);
-  const deleteContent = document.createElement('i');
-  deleteContent.classList.add(faRegular, faTrash);
-  deleteButton.appendChild(deleteContent);
-  actionsContainer.appendChild(deleteButton);
-
-  const editButton = document.createElement('button');
-  editButton.classList.add(btnClass, btnRoundClass, btnEditClass);
-  const editContent = document.createElement('i');
-  editContent.classList.add(faRegular, faPen);
-  editButton.appendChild(editContent);
-  actionsContainer.appendChild(editButton);
+  const actionsContainer = createNoteActionsContainer();
+  newNote.appendChild(actionsContainer);
 
   return newNote;
 };
@@ -138,16 +95,38 @@ export const deleteNote = (noteId) => {
   noteToDelete.remove();
 };
 
-{
-  /* <article class="note note-success">
-<p>My second note</p>
-<div class="note-actions">
-  <button class="btn btn-round delete">
-    <i class="fa-regular fa-trash-can"></i>
-  </button>
-  <button class="btn btn-round edit">
-    <i class="fa-regular fa-pen-to-square"></i>
-  </button>
-</div>
-</article> */
-}
+const createNoteActionsContainer = () => {
+  const actionsContainer = document.createElement('div');
+  actionsContainer.classList.add(actionsContainerClass);
+
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add(btnClass, btnRoundClass, btnDeleteClass);
+  const deleteContent = document.createElement('i');
+  deleteContent.classList.add(faRegular, faTrash);
+  deleteButton.appendChild(deleteContent);
+  actionsContainer.appendChild(deleteButton);
+
+  const editButton = document.createElement('button');
+  editButton.classList.add(btnClass, btnRoundClass, btnEditClass);
+  const editContent = document.createElement('i');
+  editContent.classList.add(faRegular, faPen);
+  editButton.appendChild(editContent);
+  actionsContainer.appendChild(editButton);
+
+  return actionsContainer;
+};
+
+const getNoteTypeClass = (topic) => {
+  switch (topic) {
+    case 'drop':
+      return noteDropClass;
+    case 'add':
+      return noteAddClass;
+    case 'keep':
+      return noteKeepClass;
+    case 'improve':
+      return noteImproveClass;
+    default:
+      return '';
+  }
+};
