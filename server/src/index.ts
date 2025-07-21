@@ -14,6 +14,13 @@ wss.on('connection', function connection(ws) {
   wssManager.addConnection(ws);
   wssManager.pingConnection(ws, 'Connected to web socket');
 
+  // Broadcast all notes on established connection
+  const notes = retroNotesService.getAllNotes();
+  if (notes.notes.length > 0) {
+    const payload = JSON.stringify(notes);
+    wssManager.broadcast(payload);
+  }
+
   ws.on('message', function message(data) {
     try {
       wssManager.receiveDataFromConnection(data.toString(), (parsed: RetroNotePayload | RetroNotePayload[]) => {
