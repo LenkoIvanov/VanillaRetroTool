@@ -5,6 +5,7 @@ import {
   placeholderNote,
   publishNotesBtnAttr,
   unpublishedNotesAttr,
+  notePlaceholderClass,
 } from './constants/domElements';
 import {
   appendCreatedNote,
@@ -41,7 +42,7 @@ const expungeOldUnpublishedNotes = () => {
   );
 
   for (const child of childNotes) {
-    if (!child.classList.contains('note-placeholder')) {
+    if (!child.classList.contains(notePlaceholderClass)) {
       unpublishedSection.removeChild(child);
     }
   }

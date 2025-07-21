@@ -15,6 +15,8 @@ export const faRegular = 'fa-regular';
 export const faPen = 'fa-pen-to-square';
 export const faTrash = 'fa-trash-can';
 
+export const notePlaceholderClass = 'note-placeholder';
+
 // attributes
 export const creatorIdAttrName = 'data-noteCreator';
 export const noteIdAttrName = 'data-noteId';
