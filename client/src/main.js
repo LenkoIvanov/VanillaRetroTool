@@ -83,3 +83,5 @@ publishBtn.addEventListener('click', () => {
   socketInstance.send(serializeNotes);
   expungeOldUnpublishedNotes();
 });
+
+document.addEventListener('onbeforeunload', socketInstance.close);
