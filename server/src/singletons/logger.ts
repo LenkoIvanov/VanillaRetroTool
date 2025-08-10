@@ -28,7 +28,7 @@ const logger = createLogger({
       format: format.combine(
         capitalizeLevel(),
         format.colorize(),
-        format.timestamp({ format: 'DD.MM.YY - HH:MM:SS' }),
+        format.timestamp({ format: 'DD.MM.YY - HH:mm:ss' }),
         logFormat
       ),
     }),
