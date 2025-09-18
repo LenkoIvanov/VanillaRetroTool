@@ -79,8 +79,14 @@ placeholderBtn.addEventListener('click', () => {
 
 const publishBtn = document.querySelector(publishNotesBtnAttr);
 publishBtn.addEventListener('click', () => {
-  const serializeNotes = JSON.stringify(notesToSubmit);
-  socketInstance.send(serializeNotes);
+  const payload = {
+    type: 'create',
+    content: {
+      notes: notesToSubmit,
+    },
+  };
+  const serializedPayload = JSON.stringify(payload);
+  socketInstance.send(serializedPayload);
   expungeOldUnpublishedNotes();
 });
 

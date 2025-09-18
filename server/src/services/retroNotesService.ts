@@ -1,6 +1,6 @@
 import { RetroNote, notesStorageSingleton } from '../singletons/RetroNotes.js';
 import { v4 as uuidv4 } from 'uuid';
-import type {  RetroNotePayload } from '../types/RetroNoteData.js';
+import type { RetroNotePayload } from '../types/RetroNoteData.js';
 
 class RetroNotesService {
   addNewNote(request: RetroNotePayload) {
@@ -15,6 +15,10 @@ class RetroNotesService {
     return {
       notes: notesStorageSingleton.getNotes(),
     };
+  }
+
+  deleteNote(idToDelete: string) {
+    notesStorageSingleton.removeNote(idToDelete);
   }
 }
 
