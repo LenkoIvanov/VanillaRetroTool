@@ -28,7 +28,7 @@
         <div class="board">
           <section class="board-col retro-category">
             <header class="retro-category__title">
-              <i class="fa-regular fa-circle-xmark"></i>
+              <i class="icon icon-xl icon-drop fa-regular fa-circle-xmark"></i>
               <h3>Drop</h3>
             </header>
             <section class="retro-category__content content-wrapper">
@@ -69,7 +69,7 @@
           </section>
           <section class="board-col retro-category">
             <header class="retro-category__title">
-              <i class="fa-regular fa-square-plus"></i>
+              <i class="icon icon-xl icon-add fa-regular fa-square-plus"></i>
               <h3>Add</h3>
             </header>
             <section class="retro-category__content content-wrapper">
@@ -99,7 +99,7 @@
           </section>
           <section class="board-col retro-category">
             <header class="retro-category__title">
-              <i class="fa-regular fa-star"></i>
+              <i class="icon icon-xl icon-keep fa-regular fa-star"></i>
               <h3>Keep</h3>
             </header>
             <section class="retro-category__content content-wrapper">
@@ -108,7 +108,7 @@
           </section>
           <section class="board-col retro-category">
             <header class="retro-category__title">
-              <i class="fa-regular fa-lightbulb"></i>
+              <i class="icon icon-xl icon-improve fa-regular fa-lightbulb"></i>
               <h3>Improve</h3>
             </header>
             <section class="retro-category__content content-wrapper">
@@ -125,17 +125,19 @@
           <section class="board-col col-span-3 notes-toolbar content-wrapper">
             <button>
               <i class="fa-regular fa-paper-plane"></i>
-              Publish all
+              <span>Publish all</span>
             </button>
             <div class="notes-toolbar__items">
-              <article class="note note-warning">My first note</article>
-              <article class="note note-success">My second note</article>
-              <article class="note note-danger">My third note</article>
-              <article class="note note-danger">My fourth note</article>
-              <article class="note note-info">My fifth note</article>
-              <article class="note note-warning">My sixed note</article>
-              <article class="note note-warning">My sixed note</article>
-              <article class="note note-warning">My sixed note</article>
+              <div>
+                <article class="note note-warning">My first note</article>
+                <article class="note note-success">My second note</article>
+                <article class="note note-danger">My third note</article>
+                <article class="note note-danger">My fourth note</article>
+                <article class="note note-info">My fifth note</article>
+                <article class="note note-warning">My sixed note</article>
+                <article class="note note-warning">My sixed note</article>
+                <article class="note note-warning">My sixed note</article>
+              </div>
               <article class="note note-placeholder">
                 <button type="button">+</button>
               </article>
@@ -145,19 +147,19 @@
             <form class="note-form">
               <fieldset class="note-form__categories">
                 <legend>Choose Category:</legend>
-                <label>
-                  <input type="radio" name="category" value="drop" />
+                <label for="drop" class="icon icon-drop">
+                  <input type="radio" name="category" value="drop" id="drop" />
                   <i class="fa-regular fa-circle-xmark"></i>
                 </label>
-                <label>
+                <label for="add" class="icon icon-add">
                   <input type="radio" name="category" value="add" />
                   <i class="fa-regular fa-square-plus"></i>
                 </label>
-                <label>
+                <label for="keep" class="icon icon-keep">
                   <input type="radio" name="category" value="keep" />
                   <i class="fa-regular fa-star"></i>
                 </label>
-                <label>
+                <label for="improve" class="icon icon-improve">
                   <input type="radio" name="category" value="improve" />
                   <i class="fa-regular fa-lightbulb"></i>
                 </label>
@@ -169,8 +171,8 @@
                 required
               ></textarea>
               <button class="note-form__submit">
-                <i class="fa-regular fa-note-sticky"></i>
-                Add
+                <i class="fa-regular fa-pen-to-square"></i>
+                <span>Add</span>
               </button>
             </form>
           </section>
