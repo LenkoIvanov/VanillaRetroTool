@@ -6,12 +6,15 @@ import {
   publishNotesBtnAttr,
   unpublishedNotesAttr,
   notePlaceholderClass,
+  noteIdAttrName,
+  btnDeleteClass,
 } from './constants/domElements';
 import {
   appendCreatedNote,
   createNewNote,
   createWipNote,
   emptyAllNoteSections,
+  deleteSingleDomNote,
 } from './scripts/domFunctions';
 import { openSocket } from './scripts/socketConnection';
 
@@ -88,6 +91,22 @@ publishBtn.addEventListener('click', () => {
   const serializedPayload = JSON.stringify(payload);
   socketInstance.send(serializedPayload);
   expungeOldUnpublishedNotes();
+});
+
+document.addEventListener('click', (ev) => {
+  if (ev.target.classList.contains(btnDeleteClass)) {
+    const parentNote = ev.target.closest('article');
+    const noteId = parentNote.getAttribute(noteIdAttrName);
+    const payload = {
+      type: 'delete',
+      content: {
+        noteId: noteId,
+      },
+    };
+    const serializedPayload = JSON.stringify(payload);
+    socketInstance.send(serializedPayload);
+    deleteSingleDomNote(noteId);
+  }
 });
 
 document.addEventListener('onbeforeunload', socketInstance.close);

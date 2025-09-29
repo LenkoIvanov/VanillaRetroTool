@@ -13,13 +13,10 @@ import {
   getNoteIdAttribute,
   improveSectionAttr,
   keepSectionAttr,
-  noteAddClass,
   noteClass,
-  noteDropClass,
   noteIdAttrName,
-  noteImproveClass,
-  noteKeepClass,
 } from '../constants/domElements';
+import { getNoteTypeClass } from './helpers';
 
 export const createWipNote = (text, topic) => {
   const newNote = document.createElement('article');
@@ -48,8 +45,11 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
   newNote.setAttribute(creatorIdAttrName, creatorId);
   newNote.setAttribute(noteIdAttrName, noteId);
 
-  const actionsContainer = createNoteActionsContainer();
-  newNote.appendChild(actionsContainer);
+  // TODO --> Refactor once we have the actual creator ID
+  if (creatorId === 'Lenko') {
+    const actionsContainer = createNoteActionsContainer();
+    newNote.appendChild(actionsContainer);
+  }
 
   return newNote;
 };
@@ -90,7 +90,7 @@ export const emptyAllNoteSections = () => {
   improveSection.innerHTML = '';
 };
 
-export const deleteNote = (noteId) => {
+export const deleteSingleDomNote = (noteId) => {
   const noteToDelete = document.querySelector(getNoteIdAttribute(noteId));
   noteToDelete.remove();
 };
@@ -114,19 +114,4 @@ const createNoteActionsContainer = () => {
   actionsContainer.appendChild(editButton);
 
   return actionsContainer;
-};
-
-const getNoteTypeClass = (topic) => {
-  switch (topic) {
-    case 'drop':
-      return noteDropClass;
-    case 'add':
-      return noteAddClass;
-    case 'keep':
-      return noteKeepClass;
-    case 'improve':
-      return noteImproveClass;
-    default:
-      return '';
-  }
 };
