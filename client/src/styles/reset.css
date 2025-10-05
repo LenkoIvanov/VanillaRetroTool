@@ -17,9 +17,11 @@ ol {
 
 /* Remove default button styles */
 button {
-  border: none;
-  background: none;
-  cursor: pointer;
+  all: unset; /* nukes all default styles */
+  cursor: pointer; /* restore pointer cursor */
+  display: inline-flex; /* better alignment for icons/text */
+  align-items: center;
+  justify-content: center;
 }
 
 /* Remove default anchor styling */
