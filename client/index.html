@@ -6,6 +6,7 @@
     <title>JustAnotherRetro</title>
     <link rel="stylesheet" href="./src/styles/index.css" />
     <script src="./src/scripts/loadFA.js" type="module"></script>
+    <script src="./src/main.js" type="module"></script>
   </head>
   <body>
     <header>
@@ -20,157 +21,132 @@
         <li><button type="button" class="btn btn-user">A</button></li>
       </ul>
     </header>
+
     <main>
       <section class="section section-board row-span-2">
         <div class="section__title__wrapper">
           <h2 class="section__title">Retro board</h2>
         </div>
+
         <div class="board">
           <section class="board-col retro-category">
             <header class="retro-category__title">
               <i class="icon icon-xl icon-drop fa-regular fa-circle-xmark"></i>
               <h3>Drop</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
-              <article class="note note-danger">
-                <p>My first note. What if I am a long note?</p>
-                <div class="note-actions">
-                  <button class="btn btn-round delete">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                  <button class="btn btn-round edit">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                </div>
-              </article>
-              <article class="note note-danger">
-                <p>My second note. What if I am a long note?</p>
-                <div class="note-actions">
-                  <button class="btn btn-round delete">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                  <button class="btn btn-round edit">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                </div>
-              </article>
-              <article class="note note-danger">
-                <p>My third note. What if I am a long note?</p>
-                <div class="note-actions">
-                  <button class="btn btn-round delete">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                  <button class="btn btn-round edit">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                </div>
-              </article>
-            </section>
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="drop-section"
+            ></section>
           </section>
           <section class="board-col retro-category">
             <header class="retro-category__title">
               <i class="icon icon-xl icon-add fa-regular fa-square-plus"></i>
               <h3>Add</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
-              <article class="note note-success">
-                <p>My second note</p>
-                <div class="note-actions">
-                  <button class="btn btn-round delete">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                  <button class="btn btn-round edit">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                </div>
-              </article>
-              <article class="note note-success">
-                <p>My second note</p>
-                <div class="note-actions">
-                  <button class="btn btn-round delete">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                  <button class="btn btn-round edit">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                </div>
-              </article>
-            </section>
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="add-section"
+            ></section>
           </section>
           <section class="board-col retro-category">
             <header class="retro-category__title">
               <i class="icon icon-xl icon-keep fa-regular fa-star"></i>
               <h3>Keep</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
-              <article class="note note-info">My third note</article>
-            </section>
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="keep-section"
+            ></section>
           </section>
           <section class="board-col retro-category">
             <header class="retro-category__title">
               <i class="icon icon-xl icon-improve fa-regular fa-lightbulb"></i>
               <h3>Improve</h3>
             </header>
-            <section class="retro-category__content content-wrapper">
-              <article class="note note-warning">My improve note</article>
-            </section>
+            <section
+              class="retro-category__content content-wrapper"
+              data-noteColumn="improve-section"
+            ></section>
           </section>
         </div>
       </section>
+
       <section class="section section-workspace">
         <div class="section__title__wrapper">
           <h2 class="section__title">My notes</h2>
         </div>
+
         <div class="board">
           <section class="board-col col-span-3 notes-toolbar content-wrapper">
-            <button>
+            <button data-button="publish-notes">
               <i class="fa-regular fa-paper-plane"></i>
               <span>Publish all</span>
             </button>
-            <div class="notes-toolbar__items">
-              <div>
-                <article class="note note-warning">My first note</article>
-                <article class="note note-success">My second note</article>
-                <article class="note note-danger">My third note</article>
-                <article class="note note-danger">My fourth note</article>
-                <article class="note note-info">My fifth note</article>
-                <article class="note note-warning">My sixed note</article>
-                <article class="note note-warning">My sixed note</article>
-                <article class="note note-warning">My sixed note</article>
-              </div>
-              <article class="note note-placeholder">
+            <div class="notes-toolbar__items" data-section="unpublished-notes">
+              <article class="note note-placeholder" id="placeholder-note">
                 <button type="button">+</button>
               </article>
             </div>
           </section>
+
           <section class="board-col col-span-1 notes-editor content-wrapper">
-            <form class="note-form">
-              <fieldset class="note-form__categories">
+            <form
+              class="note-form"
+              id="create-note-form"
+              name="create-note-form"
+              method="post"
+            >
+              <fieldset name="note-type" class="note-form__categories">
                 <legend>Choose Category:</legend>
                 <label for="drop" class="icon icon-drop">
-                  <input type="radio" name="category" value="drop" id="drop" />
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="drop"
+                    value="drop"
+                    required
+                  />
                   <i class="fa-regular fa-circle-xmark"></i>
                 </label>
                 <label for="add" class="icon icon-add">
-                  <input type="radio" name="category" value="add" />
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="add"
+                    value="add"
+                    required
+                  />
                   <i class="fa-regular fa-square-plus"></i>
                 </label>
                 <label for="keep" class="icon icon-keep">
-                  <input type="radio" name="category" value="keep" />
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="keep"
+                    value="keep"
+                    required
+                  />
                   <i class="fa-regular fa-star"></i>
                 </label>
                 <label for="improve" class="icon icon-improve">
-                  <input type="radio" name="category" value="improve" />
+                  <input
+                    type="radio"
+                    name="topic"
+                    id="improve"
+                    value="improve"
+                    required
+                  />
                   <i class="fa-regular fa-lightbulb"></i>
                 </label>
               </fieldset>
               <textarea
                 class="note-form__textarea"
-                name="note"
+                name="note-content"
                 placeholder="Type anything here..."
                 required
               ></textarea>
-              <button class="note-form__submit">
+              <button class="note-form__submit" type="submit">
                 <i class="fa-regular fa-pen-to-square"></i>
                 <span>Add</span>
               </button>

@@ -3,8 +3,8 @@ import { WebSocketServer } from 'ws';
 import { wssConfig } from './configs/socketServerConfig.js';
 import { wssManager } from './singletons/WebSocketManager.js';
 import { retroNotesService } from './services/retroNotesService.js';
-import type { RetroNoteData } from './types/RetroNoteData.js';
 import logger from './singletons/logger.js';
+import { webSocketService } from './services/webSocketService.js';
 
 const wss = new WebSocketServer(wssConfig);
 
@@ -14,12 +14,20 @@ wss.on('connection', function connection(ws) {
   wssManager.addConnection(ws);
   wssManager.pingConnection(ws, 'Connected to web socket');
 
+  // Broadcast all notes on established connection
+  const notes = retroNotesService.getAllNotes();
+  if (notes.notes.length > 0) {
+    const payload = JSON.stringify(notes);
+    wssManager.broadcast(payload);
+  }
+
   ws.on('message', function message(data) {
     try {
-      wssManager.receiveDataFromConnection(data.toString(), (parsed: RetroNoteData) => {
-        logger.info('Received a new note');
-        retroNotesService.addNewNote(parsed);
-      });
+      wssManager.receiveDataFromConnection(
+        data.toString(),
+        webSocketService.handleNoteCreation,
+        webSocketService.handleNoteDeletion
+      );
       const payload = JSON.stringify(retroNotesService.getAllNotes());
       logger.info('Broadcasting payload');
       wssManager.broadcast(payload);

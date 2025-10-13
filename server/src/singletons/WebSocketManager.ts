@@ -1,7 +1,7 @@
 import { WebSocket } from 'ws';
-import type { RetroNoteData } from '../types/RetroNoteData.js';
-import { parseRetroNote } from '../helpers/retroNotesHelper.js';
+import type { RetroNotePayload } from '../types/RetroNoteData.js';
 import logger from './logger.js';
+import { parseIncomingData } from '../helpers/helper.js';
 
 class WebSocketManager {
   connections: Set<WebSocket>;
@@ -45,9 +45,23 @@ class WebSocketManager {
     }
   }
 
-  receiveDataFromConnection(data: string, callback: (parsedData: RetroNoteData) => void) {
-    const newRetroNote = parseRetroNote(data);
-    callback(newRetroNote);
+  receiveDataFromConnection(
+    data: string,
+    createCallback: (parsedData: RetroNotePayload[]) => void,
+    deleteCallback: (idToDelete: string) => void
+  ) {
+    const parsedData = parseIncomingData(data);
+    console.log(parsedData);
+    switch (parsedData.type) {
+      case 'create':
+        createCallback(parsedData.content.notes);
+        break;
+      case 'delete':
+        deleteCallback(parsedData.content.noteId);
+        break;
+      default:
+        break;
+    }
   }
 }
 

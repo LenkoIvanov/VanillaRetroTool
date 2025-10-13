@@ -1,95 +1,112 @@
-const serverUrl = 'ws://localhost:8080';
+import {
+  formNoteContent,
+  formNoteTopic,
+  newNoteFormId,
+  placeholderNote,
+  publishNotesBtnAttr,
+  unpublishedNotesAttr,
+  notePlaceholderClass,
+  noteIdAttrName,
+  btnDeleteClass,
+} from './constants/domElements';
+import {
+  appendCreatedNote,
+  createNewNote,
+  createWipNote,
+  emptyAllNoteSections,
+  deleteSingleDomNote,
+} from './scripts/domFunctions';
+import { openSocket } from './scripts/socketConnection';
 
-let socket;
-let statusDiv;
-let text;
-let topic;
-let creatorId;
-let sendBtn;
-let messagesList;
-const setup = () => {
-  statusDiv = document.getElementById('status');
-  text = document.getElementById('text');
-  creatorId = document.getElementById('creatorId');
-  topic = document.getElementById('topic');
-  sendBtn = document.getElementById('sendBtn');
-  messagesList = document.getElementById('messages');
+const notesToSubmit = [];
 
-  sendBtn.addEventListener('click', sendMessage);
-  openSocket(serverUrl);
-};
-
-const openSocket = (url) => {
-  socket = new WebSocket(url);
-  socket.addEventListener('open', openConnection);
-  socket.addEventListener('close', closeConnection);
-  socket.addEventListener('message', readIncomingMessage);
-  socket.addEventListener('error', (err) => {
-    console.error('WebSocket error:', err);
-    statusDiv.textContent = '🔴 Error connecting to WebSocket';
-  });
-};
-
-const openConnection = () => {
-  console.log('Connected to WebSocket server');
-  statusDiv.textContent = '🟢 Connected';
-};
-
-const closeConnection = () => {
-  console.log('Disconnected from WebSocket server');
-  statusDiv.textContent = '🔴 Disconnected. Reconnecting...';
-
-  setTimeout(() => {
-    console.log('Reconnecting...');
-    openSocket(serverUrl);
-  }, 3000); // Retry after 3 seconds
-};
-
-const readIncomingMessage = (e) => {
-  const li = document.createElement('li');
-  li.textContent = `🔹 Server: ${e.data}`;
-  messagesList.appendChild(li);
-};
-
-const sendMessage = () => {
-  let creator = creatorId.value;
-  let topicVal = topic.value;
-  let retroNote = text.value;
-
-  if (
-    creator.trim() !== '' &&
-    topicVal.trim() !== '' &&
-    retroNote.trim() !== ''
-  ) {
-    socket.send(
-      JSON.stringify({
-        creatorId: creator,
-        topic: topicVal,
-        text: retroNote,
-      }),
-    );
-
-    const li = document.createElement('li');
-    li.textContent = `🟡 You: I'am ${creator}. Regarding topic "${topicVal}" I think that ${retroNote}`;
-    retroNote = ''; // Clear input field
-    topicVal = '';
-    creator = '';
-    messagesList.appendChild(li);
+const onBroadcastReceive = (ev) => {
+  console.log('Broadcast received:', ev);
+  const parsedNoteData = JSON.parse(ev.data);
+  console.log(parsedNoteData);
+  if (typeof parsedNoteData.notes !== 'undefined') {
+    emptyAllNoteSections();
+    parsedNoteData.notes.forEach((note) => {
+      const domNote = createNewNote(
+        note.creatorId,
+        note.noteId,
+        note.topic,
+        note.text,
+      );
+      appendCreatedNote(domNote, note.topic);
+    });
   }
 };
 
-const inputMessage = (e) => {
-  if (e.key === 'Enter') {
-    sendBtn.click();
+const expungeOldUnpublishedNotes = () => {
+  const unpublishedSection = document.querySelector(unpublishedNotesAttr);
+  const childNotes = Array.from(
+    unpublishedSection.getElementsByTagName('article'),
+  );
+
+  for (const child of childNotes) {
+    if (!child.classList.contains(notePlaceholderClass)) {
+      unpublishedSection.removeChild(child);
+    }
   }
+
+  notesToSubmit.length = 0;
 };
 
-// add a listener for the page to load:
-window.addEventListener('load', setup);
+const socketInstance = openSocket(onBroadcastReceive);
 
-// close connection when the page unloads or refreshes
-window.addEventListener('beforeunload', () => {
-  if (socket) {
-    socket.close();
+const newNoteForm = document.getElementById(newNoteFormId);
+newNoteForm.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  const formData = new FormData(ev.target);
+  const notePayload = {
+    creatorId: 'Lenko',
+    topic: formData.get(formNoteTopic),
+    text: formData.get(formNoteContent),
+  };
+
+  notesToSubmit.push(notePayload);
+  const newNote = createWipNote(notePayload.text, notePayload.topic);
+
+  const unpublishedSection = document.querySelector(unpublishedNotesAttr);
+  unpublishedSection.appendChild(newNote);
+
+  ev.target.reset();
+});
+
+const placeholderBtn = document.getElementById(placeholderNote);
+placeholderBtn.addEventListener('click', () => {
+  // TODO --> Refactor to improve readability
+  newNoteForm.elements[5].focus();
+});
+
+const publishBtn = document.querySelector(publishNotesBtnAttr);
+publishBtn.addEventListener('click', () => {
+  const payload = {
+    type: 'create',
+    content: {
+      notes: notesToSubmit,
+    },
+  };
+  const serializedPayload = JSON.stringify(payload);
+  socketInstance.send(serializedPayload);
+  expungeOldUnpublishedNotes();
+});
+
+document.addEventListener('click', (ev) => {
+  if (ev.target.classList.contains(btnDeleteClass)) {
+    const parentNote = ev.target.closest('article');
+    const noteId = parentNote.getAttribute(noteIdAttrName);
+    const payload = {
+      type: 'delete',
+      content: {
+        noteId: noteId,
+      },
+    };
+    const serializedPayload = JSON.stringify(payload);
+    socketInstance.send(serializedPayload);
+    deleteSingleDomNote(noteId);
   }
 });
+
+document.addEventListener('onbeforeunload', socketInstance.close);
