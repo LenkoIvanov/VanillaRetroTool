@@ -18,7 +18,15 @@
             Participants
           </button>
         </li>
-        <li><button type="button" class="btn btn-user">A</button></li>
+        <li>
+          <button
+            type="button"
+            class="btn btn-user"
+            data-modal-target="#loginModal"
+          >
+            A
+          </button>
+        </li>
       </ul>
     </header>
 
@@ -155,5 +163,24 @@
         </div>
       </section>
     </main>
+    <!-- Placeholder where login.html will be injected -->
+    <div id="modal-container"></div>
   </body>
+
+  <script type="module">
+    import { initModal } from './src/modal.js';
+
+    fetch('./login.html')
+      .then((response) => {
+        if (!response.ok) throw new Error('Failed to load modal');
+        return response.text();
+      })
+      .then((html) => {
+        document.getElementById('modal-container').innerHTML = html;
+
+        // Once loaded, attach modal behavior
+        initModal();
+      })
+      .catch((err) => console.error(err));
+  </script>
 </html>
