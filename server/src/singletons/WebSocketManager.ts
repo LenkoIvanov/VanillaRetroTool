@@ -48,10 +48,10 @@ class WebSocketManager {
   receiveDataFromConnection(
     data: string,
     createCallback: (parsedData: RetroNotePayload[]) => void,
-    deleteCallback: (idToDelete: string) => void
+    deleteCallback: (idToDelete: string) => void,
+    loginCallback: (username: string) => void
   ) {
     const parsedData = parseIncomingData(data);
-    console.log(parsedData);
     switch (parsedData.type) {
       case 'create':
         createCallback(parsedData.content.notes);
@@ -59,9 +59,13 @@ class WebSocketManager {
       case 'delete':
         deleteCallback(parsedData.content.noteId);
         break;
+      case 'login':
+        loginCallback(parsedData.content.username);
+        break;
       default:
         break;
     }
+    return parsedData;
   }
 }
 
