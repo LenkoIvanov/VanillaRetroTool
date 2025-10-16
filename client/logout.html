@@ -1,0 +1,26 @@
+<div
+  class="modal"
+  id="logoutModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="loginTitle"
+  aria-describedby="logoutBody"
+  data-modal
+>
+  <div class="modal__dialog" tabindex="-1">
+    <header class="modal__header">
+      <h2 class="modal__title" id="logoutTitle">Sign out</h2>
+      <button class="modal__close" data-modal-close aria-label="Close dialog">
+        ×
+      </button>
+    </header>
+
+    <div class="modal__body" id="logoutBody">
+      <form id="logoutForm">
+        <input type="hidden" id="participantId" name="participantId" required />
+
+        <button type="submit">Logout</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -22,8 +22,16 @@ const loginParticipantSchema = z.object({
   }),
 });
 
+const logoutParticipantSchema = z.object({
+  type: z.literal('logout'),
+  content: z.object({
+    participantId: z.string(),
+  }),
+});
+
 export const incomingDataSchema = z.discriminatedUnion('type', [
   createPayloadSchema,
   deletePayloadSchema,
   loginParticipantSchema,
+  logoutParticipantSchema,
 ]);

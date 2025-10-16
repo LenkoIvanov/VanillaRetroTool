@@ -1,10 +1,13 @@
 import { openSocket } from './scripts/socketConnection';
 
 export const initModal = () => {
-  const modal = document.getElementById('loginModal');
+  const modal =
+    document.getElementById('loginModal') ??
+    document.getElementById('logoutModal');
   const openBtn = document.querySelector('[data-modal-target]');
+  const loginForm = document.getElementById('loginForm');
   const closeBtn = modal.querySelector('[data-modal-close]');
-  const modalForm = document.getElementById('loginForm');
+  const logoutForm = document.getElementById('logoutForm');
 
   openBtn.addEventListener('click', () => {
     modal.classList.add('is-open');
@@ -12,11 +15,18 @@ export const initModal = () => {
   });
 
   closeBtn.addEventListener('click', () => {
+    if (loginForm) {
+      closeBtn.setAttribute('disabled', true);
+      return;
+    }
     modal.classList.remove('is-open');
     document.body.classList.remove('modal-open');
   });
 
   modal.addEventListener('click', (e) => {
+    if (loginForm) {
+      return;
+    }
     if (e.target === modal) {
       modal.classList.remove('is-open');
       document.body.classList.remove('modal-open');
@@ -24,6 +34,9 @@ export const initModal = () => {
   });
 
   document.addEventListener('keydown', (e) => {
+    if (loginForm) {
+      return;
+    }
     if (e.key === 'Escape') {
       modal.classList.remove('is-open');
       document.body.classList.remove('modal-open');
@@ -32,16 +45,32 @@ export const initModal = () => {
 
   const socketInstance = openSocket(() => {});
 
-  modalForm?.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    const formData = new FormData(modalForm);
-    const payload = {
-      type: 'login',
-      content: {
-        username: formData.get('username'),
-      },
-    };
-    const serializedPayload = JSON.stringify(payload);
-    socketInstance.send(serializedPayload);
-  });
+  if (loginForm) {
+    loginForm?.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const formData = new FormData(loginForm);
+      const payload = {
+        type: 'login',
+        content: {
+          username: formData.get('username'),
+        },
+      };
+      const serializedPayload = JSON.stringify(payload);
+      socketInstance.send(serializedPayload);
+    });
+  }
+  if (logoutForm) {
+    logoutForm?.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const formData = new FormData(logoutForm);
+      const payload = {
+        type: 'logout',
+        content: {
+          participantId: formData.get('participantId'),
+        },
+      };
+      const serializedPayload = JSON.stringify(payload);
+      socketInstance.send(serializedPayload);
+    });
+  }
 };

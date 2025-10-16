@@ -8,6 +8,10 @@ class LoginService {
     participantsStorageSingleton.addNewParticipant(newParticipant);
   }
 
+  logoutParticipant(participantId: string) {
+    participantsStorageSingleton.deleteParticipant(participantId);
+  }
+
   getAllParticipants() {
     return {
       participants: participantsStorageSingleton.getParticipants(),

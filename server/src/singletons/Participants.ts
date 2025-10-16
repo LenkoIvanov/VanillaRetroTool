@@ -24,6 +24,15 @@ class ParticipantsStorage {
     participantsCopy.push(participant);
     this.participants = participantsCopy;
   }
+
+  deleteParticipant(participantId: Participant['participantId']) {
+    const participantsCopy = this.getParticipants();
+    const indexToRemove = participantsCopy.findIndex((current) => current.participantId === participantId);
+    if (indexToRemove !== -1) {
+      participantsCopy.splice(indexToRemove, 1);
+      this.participants = participantsCopy;
+    }
+  }
 }
 
 export const participantsStorageSingleton = new ParticipantsStorage();

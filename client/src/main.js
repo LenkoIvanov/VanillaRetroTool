@@ -22,7 +22,7 @@ const notesToSubmit = [];
 
 const onBroadcastReceive = (ev) => {
   console.log('Broadcast received:', ev);
-  const parsedData = JSON.parse(ev.data);
+  const parsedData = JSON.parse(structuredClone(ev.data));
   console.log(parsedData);
   if (typeof parsedData.notes !== 'undefined') {
     emptyAllNoteSections();
@@ -39,6 +39,11 @@ const onBroadcastReceive = (ev) => {
     const newParticipant =
       parsedData.participants[parsedData.participants.length - 1];
     localStorage.setItem('user', JSON.stringify(newParticipant));
+    window.location.reload();
+  } else if (parsedData.participantId) {
+    localStorage.removeItem('user');
+    window.location.reload();
+    console.log('heheheheh', JSON.stringify(parsedData.participantId));
   }
 };
 
@@ -64,7 +69,7 @@ newNoteForm.addEventListener('submit', (ev) => {
   ev.preventDefault();
   const formData = new FormData(ev.target);
   const notePayload = {
-    creatorId: 'Lenko',
+    creatorId: localStorage.getItem('user'),
     topic: formData.get(formNoteTopic),
     text: formData.get(formNoteContent),
   };

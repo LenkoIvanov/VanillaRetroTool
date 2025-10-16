@@ -29,20 +29,22 @@ wss.on('connection', function connection(ws) {
         data.toString(),
         webSocketService.handleNoteCreation,
         webSocketService.handleNoteDeletion,
-        loginService.loginParticipant
+        loginService.loginParticipant,
+        loginService.logoutParticipant
       );
-      console.log(parsedData);
-
       if (parsedData.type === 'login') {
         const participants = JSON.stringify(loginService.getAllParticipants());
         wssManager.broadcast(participants);
+      } else if (parsedData.type === 'logout') {
+        const participantId = parsedData.content.participantId;
+        wssManager.broadcast(JSON.stringify({ participantId: participantId }));
       } else {
         const payload = JSON.stringify(retroNotesService.getAllNotes());
         logger.info('Broadcasting payload');
         wssManager.broadcast(payload);
       }
     } catch (e) {
-      logger.error('An error ocurred when saving a new note');
+      logger.error('An error ocurred.');
     }
   });
 
