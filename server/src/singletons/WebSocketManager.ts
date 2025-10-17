@@ -48,7 +48,8 @@ class WebSocketManager {
   receiveDataFromConnection(
     data: string,
     createCallback: (parsedData: RetroNotePayload[]) => void,
-    deleteCallback: (idToDelete: string) => void
+    deleteCallback: (idToDelete: string) => void,
+    editCallback: (idToEdit: string, newText: string) => void
   ) {
     const parsedData = parseIncomingData(data);
     console.log(parsedData);
@@ -58,6 +59,9 @@ class WebSocketManager {
         break;
       case 'delete':
         deleteCallback(parsedData.content.noteId);
+        break;
+      case 'edit':
+        editCallback(parsedData.content.noteId, parsedData.content.newText);
         break;
       default:
         break;

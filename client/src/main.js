@@ -8,6 +8,9 @@ import {
   notePlaceholderClass,
   noteIdAttrName,
   btnDeleteClass,
+  btnEditClass,
+  noteTextAreaId,
+  getNoteIdAttribute,
 } from './constants/domElements';
 import {
   appendCreatedNote,
@@ -16,6 +19,7 @@ import {
   emptyAllNoteSections,
   deleteSingleDomNote,
 } from './scripts/domFunctions';
+import { extractNoteTypeFromClassList } from './scripts/helpers';
 import { openSocket } from './scripts/socketConnection';
 
 const notesToSubmit = [];
@@ -58,20 +62,56 @@ const socketInstance = openSocket(onBroadcastReceive);
 const newNoteForm = document.getElementById(newNoteFormId);
 newNoteForm.addEventListener('submit', (ev) => {
   ev.preventDefault();
-  const formData = new FormData(ev.target);
-  const notePayload = {
-    creatorId: 'Lenko',
-    topic: formData.get(formNoteTopic),
-    text: formData.get(formNoteContent),
-  };
+  console.log(ev.target);
+  if (ev.target.hasAttribute('edit-mode')) {
+    const noteId = ev.target.getAttribute('note-id');
+    const formData = new FormData(ev.target);
+    const newText = formData.get(formNoteContent);
+    const noteType = ev.target.getAttribute('note-type-1');
+    const editPayload = {
+      type: 'edit',
+      content: {
+        noteId: noteId,
+        newText: newText,
+      },
+    };
+    const serializedPayload = JSON.stringify(editPayload);
+    socketInstance.send(serializedPayload);
 
-  notesToSubmit.push(notePayload);
-  const newNote = createWipNote(notePayload.text, notePayload.topic);
+    ev.target.removeAttribute('edit-mode');
+    ev.target.removeAttribute('note-id');
+    ev.target.removeAttribute('note-type-1');
+    const fieldsetElement = ev.target.children.namedItem('note-type'); // TODO --> rework ID name to note-type-selector
+    const textArea = ev.target.children.namedItem(noteTextAreaId);
+    const submitButton = ev.target.children[ev.target.children.length - 1];
+    const checkedInput = document.getElementById(noteType);
+    const noteInEditMode = document.querySelectorAll(
+      getNoteIdAttribute(noteId),
+    );
 
-  const unpublishedSection = document.querySelector(unpublishedNotesAttr);
-  unpublishedSection.appendChild(newNote);
+    // ev.target.clear();
 
-  ev.target.reset();
+    checkedInput.removeAttribute('checked');
+    submitButton.children[1].textContent = 'Add';
+    fieldsetElement.removeAttribute('disabled');
+    textArea.value = '';
+    noteInEditMode.classList.remove('note-in-edit-mode');
+  } else {
+    const formData = new FormData(ev.target);
+    const notePayload = {
+      creatorId: 'Lenko',
+      topic: formData.get(formNoteTopic),
+      text: formData.get(formNoteContent),
+    };
+
+    notesToSubmit.push(notePayload);
+    const newNote = createWipNote(notePayload.text, notePayload.topic);
+
+    const unpublishedSection = document.querySelector(unpublishedNotesAttr);
+    unpublishedSection.appendChild(newNote);
+
+    ev.target.reset();
+  }
 });
 
 const placeholderBtn = document.getElementById(placeholderNote);
@@ -94,6 +134,11 @@ publishBtn.addEventListener('click', () => {
 });
 
 document.addEventListener('click', (ev) => {
+  const formElement = document.getElementById(newNoteFormId);
+  if (formElement.hasAttribute('edit-mode')) {
+    return;
+  }
+
   if (ev.target.classList.contains(btnDeleteClass)) {
     const parentNote = ev.target.closest('article');
     const noteId = parentNote.getAttribute(noteIdAttrName);
@@ -106,6 +151,35 @@ document.addEventListener('click', (ev) => {
     const serializedPayload = JSON.stringify(payload);
     socketInstance.send(serializedPayload);
     deleteSingleDomNote(noteId);
+  }
+});
+
+document.addEventListener('click', (ev) => {
+  const formElement = document.getElementById(newNoteFormId);
+  if (formElement.hasAttribute('edit-mode')) {
+    return;
+  }
+  if (ev.target.classList.contains(btnEditClass)) {
+    const parentNote = ev.target.closest('article');
+    parentNote.classList.add('note-in-edit-mode');
+    const noteId = parentNote.getAttribute(noteIdAttrName);
+    const noteText = parentNote.textContent;
+    const noteType = extractNoteTypeFromClassList(parentNote.classList);
+
+    const form = document.getElementById(newNoteFormId);
+    const fieldsetElement = form.children.namedItem('note-type');
+    const inputElement = document.getElementById(noteType); // Not a direct descendant
+    const textArea = form.children.namedItem(noteTextAreaId);
+    const submitButton = form.children.item(form.children.length - 1);
+    const textContentSubmitButton = submitButton.children[1];
+
+    textArea.value = noteText;
+    inputElement.setAttribute('checked', 'true');
+    fieldsetElement.setAttribute('disabled', 'true');
+    form.setAttribute('note-type-1', noteType);
+    form.setAttribute('edit-mode', 'true');
+    form.setAttribute('note-id', noteId);
+    textContentSubmitButton.textContent = 'Edit';
   }
 });
 

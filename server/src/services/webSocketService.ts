@@ -12,6 +12,11 @@ class WebSocketService {
     logger.info('Received a note to delete');
     retroNotesService.deleteNote(idToDelete);
   }
+
+  handleNoteEdit(idToEdit: string, newText: string) {
+    logger.info('Received a note to edit');
+    retroNotesService.editNote(idToEdit, newText);
+  }
 }
 
 export const webSocketService = new WebSocketService();

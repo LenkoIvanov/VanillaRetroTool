@@ -39,6 +39,18 @@ class RetroNoteStorage {
       this.noteStorage = storageCopy;
     }
   }
+
+  editNote(noteId: string, newText: string) {
+    const storageCopy = this.getNotes();
+    const indexToEdit = storageCopy.findIndex((current) => current.noteId === noteId);
+    if (indexToEdit !== -1) {
+      const noteToEdit = storageCopy[indexToEdit];
+      if (noteToEdit) {
+        noteToEdit.text = newText;
+      }
+      this.noteStorage = storageCopy;
+    }
+  }
 }
 
 export const notesStorageSingleton = new RetroNoteStorage();

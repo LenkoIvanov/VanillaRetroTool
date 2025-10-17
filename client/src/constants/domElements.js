@@ -35,6 +35,7 @@ export const getNoteCreatorIdAttribute = (creatorId) =>
 // ids
 export const newNoteFormId = 'create-note-form';
 export const placeholderNote = 'placeholder-note';
+export const noteTextAreaId = 'note-text-area';
 
 // form fields
 export const formNoteTopic = 'topic';

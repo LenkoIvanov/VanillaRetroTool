@@ -140,6 +140,10 @@ main {
   background-color: var(--clr-bg-improve);
 }
 
+.note-in-edit-mode {
+  opacity: 0.5;
+}
+
 .note-actions {
   position: absolute;
   bottom: -0.5rem;
