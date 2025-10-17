@@ -293,6 +293,18 @@ main {
   }
 }
 
+.radio-icon > input {
+  padding: 5px;
+}
+
+.radio-icon:hover {
+  opacity: 0.5;
+}
+
+.radio-icon:has(input:checked) {
+  border: 2px solid #04d9ff;
+}
+
 button > span {
   padding-left: 0.3rem;
 }
