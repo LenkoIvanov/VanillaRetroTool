@@ -5,8 +5,7 @@ import {
   noteKeepClass,
 } from '../constants/domElements';
 
-// TODO --> REFACTOR NAME
-export const getNoteTypeClass = (topic) => {
+export const extractClassNameFromNodeType = (topic) => {
   switch (topic) {
     case 'drop':
       return noteDropClass;

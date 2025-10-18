@@ -46,3 +46,5 @@ export const placeholderNoteId = 'placeholder-note';
 export const formNoteTopic = 'topic';
 export const formNoteContent = 'note-content';
 export const formNoteFieldset = 'note-type-selector';
+export const formSubmitBtn = 'form-submit';
+export const formSubmitBtnText = 'submit-text';

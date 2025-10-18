@@ -11,6 +11,7 @@ import {
   editModeAttrName,
   editFormNoteTypeAttrName,
   editFormNoteIdAttrName,
+  btnEditClass,
 } from './constants/domElements';
 import {
   appendCreatedNote,
@@ -143,7 +144,10 @@ document.addEventListener('click', (ev) => {
   if (newNoteForm.hasAttribute(editModeAttrName)) {
     return;
   }
-  toggleEditModeOn(ev);
+
+  if (ev.target.classList.contains(btnEditClass)) {
+    toggleEditModeOn(ev);
+  }
 });
 
 document.addEventListener('onbeforeunload', socketInstance.close);
