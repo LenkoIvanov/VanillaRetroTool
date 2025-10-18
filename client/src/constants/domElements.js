@@ -4,6 +4,7 @@ export const noteDropClass = 'note-danger';
 export const noteAddClass = 'note-success';
 export const noteKeepClass = 'note-info';
 export const noteImproveClass = 'note-warning';
+export const noteTextClass = 'note-text';
 
 export const actionsContainerClass = 'note-actions';
 export const btnClass = 'btn';
@@ -16,10 +17,15 @@ export const faPen = 'fa-pen-to-square';
 export const faTrash = 'fa-trash-can';
 
 export const notePlaceholderClass = 'note-placeholder';
+export const noteInEditModeClass = 'note-in-edit-mode';
 
 // attributes
 export const creatorIdAttrName = 'data-noteCreator';
 export const noteIdAttrName = 'data-noteId';
+export const editModeAttrName = 'edit-mode';
+
+export const editFormNoteIdAttrName = 'note-id';
+export const editFormNoteTypeAttrName = 'note-type';
 
 export const dropSectionAttr = "[data-noteColumn='drop-section']";
 export const addSectionAttr = "[data-noteColumn='add-section']";
@@ -34,9 +40,10 @@ export const getNoteCreatorIdAttribute = (creatorId) =>
 
 // ids
 export const newNoteFormId = 'create-note-form';
-export const placeholderNote = 'placeholder-note';
+export const placeholderNoteId = 'placeholder-note';
 export const noteTextAreaId = 'note-text-area';
 
 // form fields
 export const formNoteTopic = 'topic';
 export const formNoteContent = 'note-content';
+export const formNoteFieldset = 'note-type-selector';

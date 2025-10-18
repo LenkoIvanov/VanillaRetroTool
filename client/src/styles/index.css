@@ -122,6 +122,11 @@ main {
   font-weight: bold;
   position: relative;
   aspect-ratio: 1/1;
+  pointer-events: none;
+}
+
+.note-text {
+  word-break: break-word;
 }
 
 .note-danger {
@@ -154,6 +159,7 @@ main {
   right: 0.5rem;
   display: flex;
   gap: 0.3rem;
+  pointer-events: all;
 }
 
 .btn-round {

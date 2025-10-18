@@ -15,8 +15,16 @@ import {
   keepSectionAttr,
   noteClass,
   noteIdAttrName,
+  noteInEditModeClass,
+  newNoteFormId,
+  noteTextAreaId,
+  formNoteFieldset,
+  editModeAttrName,
+  editFormNoteIdAttrName,
+  editFormNoteTypeAttrName,
+  noteTextClass,
 } from '../constants/domElements';
-import { getNoteTypeClass } from './helpers';
+import { getNoteTypeClass, extractNoteTypeFromClassList } from './helpers';
 
 export const createWipNote = (text, topic) => {
   const newNote = document.createElement('article');
@@ -26,6 +34,7 @@ export const createWipNote = (text, topic) => {
   newNote.classList.add(noteTypeClass);
 
   const noteContent = document.createElement('p');
+  noteContent.classList.add(noteTextClass);
   noteContent.textContent = text;
   newNote.appendChild(noteContent);
 
@@ -40,6 +49,7 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
   newNote.classList.add(noteTypeClass);
 
   const noteContent = document.createElement('p');
+  noteContent.classList.add(noteTextClass);
   noteContent.textContent = text;
   newNote.appendChild(noteContent);
   newNote.setAttribute(creatorIdAttrName, creatorId);
@@ -114,4 +124,46 @@ const createNoteActionsContainer = () => {
   actionsContainer.appendChild(editButton);
 
   return actionsContainer;
+};
+
+export const toggleEditModeOn = (ev) => {
+  const parentNote = ev.target.closest('article');
+  const noteId = parentNote.getAttribute(noteIdAttrName);
+  const noteText = parentNote.textContent;
+  const noteType = extractNoteTypeFromClassList(parentNote.classList);
+
+  const form = document.getElementById(newNoteFormId);
+  const fieldsetElement = form.children.namedItem(formNoteFieldset);
+  // Not a direct descendant of the fieldset
+  const inputElement = document.getElementById(noteType);
+  const textArea = form.children.namedItem(noteTextAreaId);
+  const submitButton = form.children.item(form.children.length - 1);
+  const textContentSubmitButton = submitButton.children[1];
+
+  form.setAttribute(editModeAttrName, 'true');
+  form.setAttribute(editFormNoteIdAttrName, noteId);
+  form.setAttribute(editFormNoteTypeAttrName, noteType);
+
+  parentNote.classList.add(noteInEditModeClass);
+  textArea.value = noteText;
+  textContentSubmitButton.textContent = 'Edit';
+  inputElement.setAttribute('checked', 'true');
+  fieldsetElement.setAttribute('disabled', 'true');
+};
+
+export const toggleEditModeOff = (ev, noteId, noteType) => {
+  ev.target.removeAttribute(editModeAttrName);
+  ev.target.removeAttribute(editFormNoteIdAttrName);
+  ev.target.removeAttribute(editFormNoteTypeAttrName);
+  const fieldsetElement = ev.target.children.namedItem(formNoteFieldset);
+  const textArea = ev.target.children.namedItem(noteTextAreaId);
+  const submitButton = ev.target.children[ev.target.children.length - 1];
+  const checkedInput = document.getElementById(noteType);
+  const noteInEditMode = document.querySelectorAll(getNoteIdAttribute(noteId));
+
+  submitButton.children[1].textContent = 'Add';
+  textArea.value = '';
+  checkedInput.removeAttribute('checked');
+  fieldsetElement.removeAttribute('disabled');
+  noteInEditMode.classList.remove(noteInEditModeClass);
 };
