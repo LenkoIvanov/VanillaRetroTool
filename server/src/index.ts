@@ -26,13 +26,14 @@ wss.on('connection', function connection(ws) {
       wssManager.receiveDataFromConnection(
         data.toString(),
         webSocketService.handleNoteCreation,
-        webSocketService.handleNoteDeletion
+        webSocketService.handleNoteDeletion,
+        webSocketService.handleNoteEdit
       );
       const payload = JSON.stringify(retroNotesService.getAllNotes());
       logger.info('Broadcasting payload');
       wssManager.broadcast(payload);
     } catch (e) {
-      logger.error('An error ocurred when saving a new note');
+      logger.error(`An error ocurred when saving a new note: ${e}`);
     }
   });
 

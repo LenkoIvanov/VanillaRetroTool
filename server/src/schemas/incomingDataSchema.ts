@@ -15,4 +15,16 @@ const deletePayloadSchema = z.object({
   }),
 });
 
-export const incomingDataSchema = z.discriminatedUnion('type', [createPayloadSchema, deletePayloadSchema]);
+const editPayloadSchema = z.object({
+  type: z.literal('edit'),
+  content: z.object({
+    noteId: z.string(),
+    newText: z.string(),
+  }),
+});
+
+export const incomingDataSchema = z.discriminatedUnion('type', [
+  createPayloadSchema,
+  deletePayloadSchema,
+  editPayloadSchema,
+]);

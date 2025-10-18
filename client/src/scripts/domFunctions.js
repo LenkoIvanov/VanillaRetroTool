@@ -15,17 +15,31 @@ import {
   keepSectionAttr,
   noteClass,
   noteIdAttrName,
+  noteInEditModeClass,
+  newNoteFormId,
+  formNoteFieldset,
+  editModeAttrName,
+  editFormNoteIdAttrName,
+  editFormNoteTypeAttrName,
+  noteTextClass,
+  formNoteContent,
+  formSubmitBtn,
+  formSubmitBtnText,
 } from '../constants/domElements';
-import { getNoteTypeClass } from './helpers';
+import {
+  extractClassNameFromNodeType,
+  extractNoteTypeFromClassList,
+} from './helpers';
 
 export const createWipNote = (text, topic) => {
   const newNote = document.createElement('article');
   newNote.classList.add(noteClass);
 
-  const noteTypeClass = getNoteTypeClass(topic);
+  const noteTypeClass = extractClassNameFromNodeType(topic);
   newNote.classList.add(noteTypeClass);
 
   const noteContent = document.createElement('p');
+  noteContent.classList.add(noteTextClass);
   noteContent.textContent = text;
   newNote.appendChild(noteContent);
 
@@ -36,10 +50,11 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
   const newNote = document.createElement('article');
   newNote.classList.add(noteClass);
 
-  const noteTypeClass = getNoteTypeClass(topic);
+  const noteTypeClass = extractClassNameFromNodeType(topic);
   newNote.classList.add(noteTypeClass);
 
   const noteContent = document.createElement('p');
+  noteContent.classList.add(noteTextClass);
   noteContent.textContent = text;
   newNote.appendChild(noteContent);
   newNote.setAttribute(creatorIdAttrName, creatorId);
@@ -114,4 +129,49 @@ const createNoteActionsContainer = () => {
   actionsContainer.appendChild(editButton);
 
   return actionsContainer;
+};
+
+export const toggleEditModeOn = (ev) => {
+  const parentNote = ev.target.closest('article');
+  const noteId = parentNote.getAttribute(noteIdAttrName);
+  const noteText = parentNote.textContent;
+  const noteType = extractNoteTypeFromClassList(parentNote.classList);
+
+  const form = document.getElementById(newNoteFormId);
+  const fieldsetElement = form.children.namedItem(formNoteFieldset);
+  // Not a direct descendant of the fieldset
+  const inputElement = document.getElementById(noteType);
+  const textArea = form.children.namedItem(formNoteContent);
+  const submitButton = form.children.namedItem(formSubmitBtn);
+  const submitButtonTextElement =
+    submitButton.children.namedItem(formSubmitBtnText);
+
+  form.setAttribute(editModeAttrName, 'true');
+  form.setAttribute(editFormNoteIdAttrName, noteId);
+  form.setAttribute(editFormNoteTypeAttrName, noteType);
+
+  parentNote.classList.add(noteInEditModeClass);
+  textArea.value = noteText;
+  submitButtonTextElement.textContent = 'Edit';
+  inputElement.setAttribute('checked', 'true');
+  fieldsetElement.setAttribute('disabled', 'true');
+};
+
+export const toggleEditModeOff = (ev, noteId, noteType) => {
+  ev.target.removeAttribute(editModeAttrName);
+  ev.target.removeAttribute(editFormNoteIdAttrName);
+  ev.target.removeAttribute(editFormNoteTypeAttrName);
+  const fieldsetElement = ev.target.children.namedItem(formNoteFieldset);
+  const textArea = ev.target.children.namedItem(formNoteContent);
+  const submitButton = ev.target.children.namedItem(formSubmitBtn);
+  const submitButtonTextElement =
+    submitButton.children.namedItem(formSubmitBtnText);
+  const checkedInput = document.getElementById(noteType);
+  const noteInEditMode = document.querySelectorAll(getNoteIdAttribute(noteId));
+
+  submitButtonTextElement.textContent = 'Add';
+  textArea.value = '';
+  checkedInput.removeAttribute('checked');
+  fieldsetElement.removeAttribute('disabled');
+  noteInEditMode.classList.remove(noteInEditModeClass);
 };
