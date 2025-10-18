@@ -17,12 +17,12 @@ import {
   noteIdAttrName,
   noteInEditModeClass,
   newNoteFormId,
-  noteTextAreaId,
   formNoteFieldset,
   editModeAttrName,
   editFormNoteIdAttrName,
   editFormNoteTypeAttrName,
   noteTextClass,
+  formNoteContent,
 } from '../constants/domElements';
 import { getNoteTypeClass, extractNoteTypeFromClassList } from './helpers';
 
@@ -136,7 +136,7 @@ export const toggleEditModeOn = (ev) => {
   const fieldsetElement = form.children.namedItem(formNoteFieldset);
   // Not a direct descendant of the fieldset
   const inputElement = document.getElementById(noteType);
-  const textArea = form.children.namedItem(noteTextAreaId);
+  const textArea = form.children.namedItem(formNoteContent);
   const submitButton = form.children.item(form.children.length - 1);
   const textContentSubmitButton = submitButton.children[1];
 
@@ -156,7 +156,7 @@ export const toggleEditModeOff = (ev, noteId, noteType) => {
   ev.target.removeAttribute(editFormNoteIdAttrName);
   ev.target.removeAttribute(editFormNoteTypeAttrName);
   const fieldsetElement = ev.target.children.namedItem(formNoteFieldset);
-  const textArea = ev.target.children.namedItem(noteTextAreaId);
+  const textArea = ev.target.children.namedItem(formNoteContent);
   const submitButton = ev.target.children[ev.target.children.length - 1];
   const checkedInput = document.getElementById(noteType);
   const noteInEditMode = document.querySelectorAll(getNoteIdAttribute(noteId));
