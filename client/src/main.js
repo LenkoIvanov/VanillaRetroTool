@@ -2,12 +2,16 @@ import {
   formNoteContent,
   formNoteTopic,
   newNoteFormId,
-  placeholderNote,
+  placeholderNoteId,
   publishNotesBtnAttr,
   unpublishedNotesAttr,
   notePlaceholderClass,
   noteIdAttrName,
   btnDeleteClass,
+  editModeAttrName,
+  editFormNoteTypeAttrName,
+  editFormNoteIdAttrName,
+  btnEditClass,
 } from './constants/domElements';
 import {
   appendCreatedNote,
@@ -15,6 +19,8 @@ import {
   createWipNote,
   emptyAllNoteSections,
   deleteSingleDomNote,
+  toggleEditModeOn,
+  toggleEditModeOff,
 } from './scripts/domFunctions';
 import { openSocket } from './scripts/socketConnection';
 
@@ -67,23 +73,43 @@ const socketInstance = openSocket(onBroadcastReceive);
 const newNoteForm = document.getElementById(newNoteFormId);
 newNoteForm.addEventListener('submit', (ev) => {
   ev.preventDefault();
-  const formData = new FormData(ev.target);
-  const notePayload = {
-    creatorId: localStorage.getItem('user'),
-    topic: formData.get(formNoteTopic),
-    text: formData.get(formNoteContent),
-  };
+  if (ev.target.hasAttribute(editModeAttrName)) {
+    const noteId = ev.target.getAttribute(editFormNoteIdAttrName);
+    const noteType = ev.target.getAttribute(editFormNoteTypeAttrName);
 
-  notesToSubmit.push(notePayload);
-  const newNote = createWipNote(notePayload.text, notePayload.topic);
+    const formData = new FormData(ev.target);
+    const newText = formData.get(formNoteContent);
 
-  const unpublishedSection = document.querySelector(unpublishedNotesAttr);
-  unpublishedSection.appendChild(newNote);
+    const editPayload = {
+      type: 'edit',
+      content: {
+        noteId: noteId,
+        newText: newText,
+      },
+    };
+    const serializedPayload = JSON.stringify(editPayload);
+    socketInstance.send(serializedPayload);
 
-  ev.target.reset();
+    toggleEditModeOff(ev, noteId, noteType);
+  } else {
+    const formData = new FormData(ev.target);
+    const notePayload = {
+      creatorId: localStorage.getItem('user'),
+      topic: formData.get(formNoteTopic),
+      text: formData.get(formNoteContent),
+    };
+
+    notesToSubmit.push(notePayload);
+    const newNote = createWipNote(notePayload.text, notePayload.topic);
+
+    const unpublishedSection = document.querySelector(unpublishedNotesAttr);
+    unpublishedSection.appendChild(newNote);
+
+    ev.target.reset();
+  }
 });
 
-const placeholderBtn = document.getElementById(placeholderNote);
+const placeholderBtn = document.getElementById(placeholderNoteId);
 placeholderBtn.addEventListener('click', () => {
   // TODO --> Refactor to improve readability
   newNoteForm.elements[5].focus();
@@ -103,6 +129,11 @@ publishBtn.addEventListener('click', () => {
 });
 
 document.addEventListener('click', (ev) => {
+  const formElement = document.getElementById(newNoteFormId);
+  if (formElement.hasAttribute(editModeAttrName)) {
+    return;
+  }
+
   if (ev.target.classList.contains(btnDeleteClass)) {
     const parentNote = ev.target.closest('article');
     const noteId = parentNote.getAttribute(noteIdAttrName);
@@ -115,6 +146,16 @@ document.addEventListener('click', (ev) => {
     const serializedPayload = JSON.stringify(payload);
     socketInstance.send(serializedPayload);
     deleteSingleDomNote(noteId);
+  }
+});
+
+document.addEventListener('click', (ev) => {
+  if (newNoteForm.hasAttribute(editModeAttrName)) {
+    return;
+  }
+
+  if (ev.target.classList.contains(btnEditClass)) {
+    toggleEditModeOn(ev);
   }
 });
 

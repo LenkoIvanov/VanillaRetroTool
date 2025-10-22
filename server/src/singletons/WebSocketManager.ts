@@ -50,6 +50,7 @@ class WebSocketManager {
     data: string,
     createCallback: (parsedData: RetroNotePayload[]) => void,
     deleteCallback: (idToDelete: string) => void,
+    editCallback: (idToEdit: string, newText: string) => void,
     loginCallback: (username: Participant['name']) => void,
     logoutCallback: (participantId: Participant['participantId']) => void
   ) {
@@ -60,6 +61,9 @@ class WebSocketManager {
         break;
       case 'delete':
         deleteCallback(parsedData.content.noteId);
+        break;
+      case 'edit':
+        editCallback(parsedData.content.noteId, parsedData.content.newText);
         break;
       case 'login':
         loginCallback(parsedData.content.username);

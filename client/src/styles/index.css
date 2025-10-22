@@ -125,6 +125,10 @@ main {
   aspect-ratio: 1/1;
 }
 
+.note-text {
+  word-break: break-word;
+}
+
 .note-danger {
   background-color: var(--clr-bg-danger);
 }
@@ -139,6 +143,14 @@ main {
 
 .note-warning {
   background-color: var(--clr-bg-improve);
+}
+
+.note-in-edit-mode {
+  opacity: 0.5;
+
+  & > .note-actions > button {
+    cursor: not-allowed;
+  }
 }
 
 .note-actions {
@@ -292,6 +304,18 @@ main {
     width: 22px;
     height: 22px;
   }
+}
+
+.radio-icon > input {
+  padding: 5px;
+}
+
+.radio-icon:hover {
+  opacity: 0.5;
+}
+
+.radio-icon:has(input:checked) {
+  border: 2px solid #04d9ff;
 }
 
 button > span {

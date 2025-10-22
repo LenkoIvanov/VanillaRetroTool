@@ -20,6 +20,10 @@ class RetroNotesService {
   deleteNote(idToDelete: string) {
     notesStorageSingleton.removeNote(idToDelete);
   }
+
+  editNote(idToEdit: string, newText: string) {
+    notesStorageSingleton.editNote(idToEdit, newText);
+  }
 }
 
 export const retroNotesService = new RetroNotesService();

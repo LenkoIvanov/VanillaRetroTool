@@ -15,6 +15,14 @@ const deletePayloadSchema = z.object({
   }),
 });
 
+const editPayloadSchema = z.object({
+  type: z.literal('edit'),
+  content: z.object({
+    noteId: z.string(),
+    newText: z.string(),
+  }),
+});
+
 const loginParticipantSchema = z.object({
   type: z.literal('login'),
   content: z.object({
@@ -30,8 +38,12 @@ const logoutParticipantSchema = z.object({
 });
 
 export const incomingDataSchema = z.discriminatedUnion('type', [
+  
   createPayloadSchema,
+ 
   deletePayloadSchema,
+  editPayloadSchema,
+,
   loginParticipantSchema,
   logoutParticipantSchema,
 ]);

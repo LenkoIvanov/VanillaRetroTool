@@ -106,9 +106,9 @@
               name="create-note-form"
               method="post"
             >
-              <fieldset name="note-type" class="note-form__categories">
+              <fieldset name="note-type-selector" class="note-form__categories">
                 <legend>Choose Category:</legend>
-                <label for="drop" class="icon icon-drop">
+                <label for="drop" class="icon icon-drop radio-icon">
                   <input
                     type="radio"
                     name="topic"
@@ -118,7 +118,7 @@
                   />
                   <i class="fa-regular fa-circle-xmark"></i>
                 </label>
-                <label for="add" class="icon icon-add">
+                <label for="add" class="icon icon-add radio-icon">
                   <input
                     type="radio"
                     name="topic"
@@ -128,7 +128,7 @@
                   />
                   <i class="fa-regular fa-square-plus"></i>
                 </label>
-                <label for="keep" class="icon icon-keep">
+                <label for="keep" class="icon icon-keep radio-icon">
                   <input
                     type="radio"
                     name="topic"
@@ -138,7 +138,7 @@
                   />
                   <i class="fa-regular fa-star"></i>
                 </label>
-                <label for="improve" class="icon icon-improve">
+                <label for="improve" class="icon icon-improve radio-icon">
                   <input
                     type="radio"
                     name="topic"
@@ -155,9 +155,13 @@
                 placeholder="Type anything here..."
                 required
               ></textarea>
-              <button class="note-form__submit" type="submit">
+              <button
+                class="note-form__submit"
+                type="submit"
+                name="form-submit"
+              >
                 <i class="fa-regular fa-pen-to-square"></i>
-                <span>Add</span>
+                <span name="submit-text">Add</span>
               </button>
             </form>
           </section>

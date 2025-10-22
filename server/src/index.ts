@@ -29,6 +29,7 @@ wss.on('connection', function connection(ws) {
         data.toString(),
         webSocketService.handleNoteCreation,
         webSocketService.handleNoteDeletion,
+        webSocketService.handleNoteEdit,
         loginService.loginParticipant,
         loginService.logoutParticipant
       );
@@ -44,7 +45,7 @@ wss.on('connection', function connection(ws) {
         wssManager.broadcast(payload);
       }
     } catch (e) {
-      logger.error('An error ocurred.');
+      logger.error(`An error ocurred when saving a new note: ${e}`);
     }
   });
 
