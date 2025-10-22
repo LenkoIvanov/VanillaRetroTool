@@ -18,7 +18,16 @@
             Participants
           </button>
         </li>
-        <li><button type="button" class="btn btn-user">A</button></li>
+        <li>
+          <button
+            type="button"
+            class="btn btn-user"
+            data-modal-target="#loginModal"
+            id="btnUser"
+          >
+            A
+          </button>
+        </li>
       </ul>
     </header>
 
@@ -159,5 +168,66 @@
         </div>
       </section>
     </main>
+    <!-- Placeholder where login.html will be injected -->
+    <div id="modal-container"></div>
   </body>
+
+  <script type="module">
+    import { initModal } from './src/modal.js';
+
+    if (localStorage.getItem('user')) {
+      const accountInfo = document.getElementById('btnUser');
+      accountInfo.textContent = JSON.parse(
+        localStorage.getItem('user'),
+      ).name[0];
+      fetch('./logout.html')
+        .then((response) => {
+          if (!response.ok) throw new Error('Failed to load modal');
+          return response.text();
+        })
+        .then((html) => {
+          document.getElementById('modal-container').innerHTML = html;
+
+          initModal();
+          const modal = document.getElementById('logoutModal');
+          if (modal) {
+            const participantInput = document.getElementById('participantId');
+            console.log(participantInput);
+            const storedUser = localStorage.getItem('user');
+
+            if (storedUser && participantInput) {
+              try {
+                const user = JSON.parse(storedUser);
+                // assuming your user object looks like { id: "123", name: "Alex" }
+                participantInput.value = user.participantId;
+              } catch (e) {
+                console.error('Invalid user data in localStorage', e);
+              }
+            }
+          }
+        })
+        .catch((err) => console.error(err));
+    } else {
+      fetch('./login.html')
+        .then((response) => {
+          if (!response.ok) throw new Error('Failed to load modal');
+          return response.text();
+        })
+        .then((html) => {
+          document.getElementById('modal-container').innerHTML = html;
+
+          // Once loaded, attach modal behavior
+          initModal();
+
+          const modal = document.getElementById('loginModal');
+          if (modal) {
+            modal.classList.add('is-open');
+            document.body.classList.add('modal-open');
+          } else {
+            console.error('#loginModal not found after injecting HTML');
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  </script>
 </html>

@@ -2,6 +2,7 @@ import { WebSocket } from 'ws';
 import type { RetroNotePayload } from '../types/RetroNoteData.js';
 import logger from './logger.js';
 import { parseIncomingData } from '../helpers/helper.js';
+import type { Participant } from './Participants.js';
 
 class WebSocketManager {
   connections: Set<WebSocket>;
@@ -49,10 +50,11 @@ class WebSocketManager {
     data: string,
     createCallback: (parsedData: RetroNotePayload[]) => void,
     deleteCallback: (idToDelete: string) => void,
-    editCallback: (idToEdit: string, newText: string) => void
+    editCallback: (idToEdit: string, newText: string) => void,
+    loginCallback: (username: Participant['name']) => void,
+    logoutCallback: (participantId: Participant['participantId']) => void
   ) {
     const parsedData = parseIncomingData(data);
-    console.log(parsedData);
     switch (parsedData.type) {
       case 'create':
         createCallback(parsedData.content.notes);
@@ -63,9 +65,16 @@ class WebSocketManager {
       case 'edit':
         editCallback(parsedData.content.noteId, parsedData.content.newText);
         break;
+      case 'login':
+        loginCallback(parsedData.content.username);
+        break;
+      case 'logout':
+        logoutCallback(parsedData.content.participantId);
+        break;
       default:
         break;
     }
+    return parsedData;
   }
 }
 

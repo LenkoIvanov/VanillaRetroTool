@@ -1,6 +1,6 @@
 const serverUrl = 'ws://localhost:8080';
 
-export const openSocket = (onIncomingMessage) => {
+export const openSocket = (onIncomingMessage, onLogin) => {
   const socket = new WebSocket(serverUrl);
   socket.addEventListener('open', openConnection);
   socket.addEventListener('close', closeConnection);

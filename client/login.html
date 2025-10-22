@@ -1,0 +1,29 @@
+<div
+  class="modal"
+  id="loginModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="loginTitle"
+  aria-describedby="loginDesc"
+  data-modal
+>
+  <div class="modal__dialog" tabindex="-1">
+    <header class="modal__header">
+      <h2 class="modal__title" id="loginTitle">Sign in</h2>
+      <button class="modal__close" data-modal-close aria-label="Close dialog">
+        ×
+      </button>
+    </header>
+
+    <div class="modal__body" id="loginDesc">
+      <form id="loginForm">
+        <label for="username"
+          ><span>Username: </span
+          ><input type="text" id="username" name="username" required
+        /></label>
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</div>

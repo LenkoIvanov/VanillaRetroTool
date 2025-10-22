@@ -1,5 +1,6 @@
 @import './reset.css';
 @import './design-tokens/design-tokens.css';
+@import './modal.css';
 
 body {
   height: 100vh;

@@ -5,6 +5,8 @@ import { wssManager } from './singletons/WebSocketManager.js';
 import { retroNotesService } from './services/retroNotesService.js';
 import logger from './singletons/logger.js';
 import { webSocketService } from './services/webSocketService.js';
+import { loginService } from './services/loginService.js';
+import { parseIncomingData } from './helpers/helper.js';
 
 const wss = new WebSocketServer(wssConfig);
 
@@ -23,15 +25,25 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function message(data) {
     try {
-      wssManager.receiveDataFromConnection(
+      const parsedData = wssManager.receiveDataFromConnection(
         data.toString(),
         webSocketService.handleNoteCreation,
         webSocketService.handleNoteDeletion,
-        webSocketService.handleNoteEdit
+        webSocketService.handleNoteEdit,
+        loginService.loginParticipant,
+        loginService.logoutParticipant
       );
-      const payload = JSON.stringify(retroNotesService.getAllNotes());
-      logger.info('Broadcasting payload');
-      wssManager.broadcast(payload);
+      if (parsedData.type === 'login') {
+        const participants = JSON.stringify(loginService.getAllParticipants());
+        wssManager.broadcast(participants);
+      } else if (parsedData.type === 'logout') {
+        const participantId = parsedData.content.participantId;
+        wssManager.broadcast(JSON.stringify({ participantId: participantId }));
+      } else {
+        const payload = JSON.stringify(retroNotesService.getAllNotes());
+        logger.info('Broadcasting payload');
+        wssManager.broadcast(payload);
+      }
     } catch (e) {
       logger.error(`An error ocurred when saving a new note: ${e}`);
     }
