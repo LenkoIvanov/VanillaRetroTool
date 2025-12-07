@@ -48,3 +48,18 @@ export const formNoteContent = 'note-content';
 export const formNoteFieldset = 'note-type-selector';
 export const formSubmitBtn = 'form-submit';
 export const formSubmitBtnText = 'submit-text';
+
+// modal-related
+export const modalOverlayOpenClass = 'modal-open';
+export const modalOpenClass = 'is-open';
+
+export const modalOpenBtnAttr = '[data-modal-target]';
+export const modalCloseBtnAttr = '[data-modal-close]';
+
+export const loginModalId = 'loginModal';
+export const logoutModalId = 'logoutModal';
+export const loginFormId = 'loginForm';
+export const logoutFormId = 'logoutForm';
+export const formUsernameId = 'username';
+export const formParticipantId = 'partiicpant-id';
+export const modalContainerId = 'modal-container';
