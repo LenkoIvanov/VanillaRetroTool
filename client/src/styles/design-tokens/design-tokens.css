@@ -8,6 +8,7 @@
   --light-gray: #cdcdcd;
   --white: #ffffff;
   --black: #000000;
+  --white-gray: #f8f8f8;
 
   /* Context tokens */
   --clr-info: var(--base-blue);
@@ -21,5 +22,6 @@
   --clr-bg-success: rgba(0, 191, 99, 0.42);
   --clr-bg-keep: rgba(0, 151, 178, 0.42);
   --clr-bg-improve: rgba(255, 189, 89, 0.42);
-
+  --clr-bg-participants: var(--white-gray);
+  --clr-border-participants: var(--dark-blue);
 }

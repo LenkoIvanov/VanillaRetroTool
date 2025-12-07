@@ -13,11 +13,14 @@
     <header>
       <h1>JustAnotherRetro</h1>
       <ul class="navbar-menu">
-        <li>
-          <button type="button" class="btn btn-primary">
+        <li class="participants-container">
+          <button data-userListBtn type="button" class="btn btn-primary">
             <i class="fa-regular fa-user"></i>
             Participants
           </button>
+          <div class="participants-modal" data-participantsModal>
+            <ul id="participants-list"></ul>
+          </div>
         </li>
         <li>
           <button

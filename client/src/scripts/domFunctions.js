@@ -10,6 +10,7 @@ import {
   faPen,
   faRegular,
   faTrash,
+  faUser,
   getNoteIdAttribute,
   improveSectionAttr,
   keepSectionAttr,
@@ -25,6 +26,8 @@ import {
   formNoteContent,
   formSubmitBtn,
   formSubmitBtnText,
+  userItemClass,
+  participantsListId,
 } from '../constants/domElements';
 import {
   extractClassNameFromNodeType,
@@ -174,4 +177,19 @@ export const toggleEditModeOff = (ev, noteId, noteType) => {
   checkedInput.removeAttribute('checked');
   fieldsetElement.removeAttribute('disabled');
   noteInEditMode.classList.remove(noteInEditModeClass);
+};
+
+export const createUserListItem = (userName) => {
+  const listItemElement = document.createElement('li');
+  listItemElement.classList.add(userItemClass);
+  const iconElement = document.createElement('i');
+  iconElement.classList.add(faRegular, faUser);
+  const spanElement = document.createElement('span');
+  spanElement.textContent = userName;
+
+  listItemElement.appendChild(iconElement);
+  listItemElement.appendChild(spanElement);
+
+  const participantListElement = document.getElementById(participantsListId);
+  participantListElement.appendChild(listItemElement);
 };

@@ -15,9 +15,13 @@ export const btnEditClass = 'edit';
 export const faRegular = 'fa-regular';
 export const faPen = 'fa-pen-to-square';
 export const faTrash = 'fa-trash-can';
+export const faUser = 'fa-user';
 
 export const notePlaceholderClass = 'note-placeholder';
 export const noteInEditModeClass = 'note-in-edit-mode';
+
+export const userItemClass = 'user-item';
+export const userModalOpen = 'participants-modal__open';
 
 // attributes
 export const creatorIdAttrName = 'data-noteCreator';
@@ -33,6 +37,8 @@ export const keepSectionAttr = "[data-noteColumn='keep-section']";
 export const improveSectionAttr = "[data-noteColumn='improve-section']";
 export const unpublishedNotesAttr = "[data-section='unpublished-notes']";
 export const publishNotesBtnAttr = "[data-button='publish-notes']";
+export const userListBtnAttr = '[data-userListBtn]';
+export const participantsModalAttr = '[data-participantsModal]';
 
 export const getNoteIdAttribute = (noteId) => `[data-noteId='${noteId}']`;
 export const getNoteCreatorIdAttribute = (creatorId) =>
@@ -41,6 +47,7 @@ export const getNoteCreatorIdAttribute = (creatorId) =>
 // ids
 export const newNoteFormId = 'create-note-form';
 export const placeholderNoteId = 'placeholder-note';
+export const participantsListId = 'participants-list';
 
 // form fields
 export const formNoteTopic = 'topic';

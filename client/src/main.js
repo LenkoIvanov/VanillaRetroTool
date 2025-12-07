@@ -12,12 +12,16 @@ import {
   editFormNoteTypeAttrName,
   editFormNoteIdAttrName,
   btnEditClass,
+  userListBtnAttr,
+  participantsModalAttr,
+  userModalOpen,
 } from './constants/domElements';
 import {
   createWipNote,
   deleteSingleDomNote,
   toggleEditModeOn,
   toggleEditModeOff,
+  createUserListItem,
 } from './scripts/domFunctions';
 import { socketInstance } from './scripts/socketConnection';
 
@@ -37,6 +41,20 @@ const expungeOldUnpublishedNotes = () => {
 
   notesToSubmit.length = 0;
 };
+
+addEventListener('load', () => {
+  const userList = JSON.parse(localStorage.getItem('userList'));
+  const currentUserName = JSON.parse(localStorage.getItem('user')).name;
+  if (userList && userList.length) {
+    userList.forEach((username) => {
+      if (currentUserName === username) {
+        createUserListItem(username + ' (You)');
+      } else {
+        createUserListItem(username);
+      }
+    });
+  }
+});
 
 const newNoteForm = document.getElementById(newNoteFormId);
 newNoteForm.addEventListener('submit', (ev) => {
@@ -125,6 +143,18 @@ document.addEventListener('click', (ev) => {
   if (ev.target.classList.contains(btnEditClass)) {
     toggleEditModeOn(ev);
   }
+});
+
+const participantsBtn = document.querySelector(userListBtnAttr);
+participantsBtn.addEventListener('click', () => {
+  const participantsModal = document.querySelector(participantsModalAttr);
+
+  if (participantsModal.classList.contains(userModalOpen)) {
+    participantsModal.classList.remove(userModalOpen);
+    return;
+  }
+
+  participantsModal.classList.add(userModalOpen);
 });
 
 document.addEventListener('onbeforeunload', socketInstance.close);

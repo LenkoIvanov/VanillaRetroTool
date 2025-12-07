@@ -49,6 +49,8 @@ const handleBroadcastReceive = (ev) => {
   } else if (parsedData.participants) {
     const newParticipant =
       parsedData.participants[parsedData.participants.length - 1];
+    const userNameList = parsedData.participants.map((user) => user.name);
+    localStorage.setItem('userList', JSON.stringify(userNameList));
     localStorage.setItem('user', JSON.stringify(newParticipant));
     window.location.reload();
   } else if (parsedData.participantId) {
