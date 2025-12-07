@@ -60,8 +60,8 @@ export const createNewNote = (creatorId, noteId, topic, text) => {
   newNote.setAttribute(creatorIdAttrName, creatorId);
   newNote.setAttribute(noteIdAttrName, noteId);
 
-  // TODO --> Refactor once we have the actual creator ID
-  if (creatorId === 'Lenko') {
+  const currentCreatorId = localStorage.getItem('user');
+  if (currentCreatorId && creatorId === currentCreatorId) {
     const actionsContainer = createNoteActionsContainer();
     newNote.appendChild(actionsContainer);
   }

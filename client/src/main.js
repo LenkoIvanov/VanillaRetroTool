@@ -14,44 +14,14 @@ import {
   btnEditClass,
 } from './constants/domElements';
 import {
-  appendCreatedNote,
-  createNewNote,
   createWipNote,
-  emptyAllNoteSections,
   deleteSingleDomNote,
   toggleEditModeOn,
   toggleEditModeOff,
 } from './scripts/domFunctions';
-import { openSocket } from './scripts/socketConnection';
+import { socketInstance } from './scripts/socketConnection';
 
 const notesToSubmit = [];
-
-const onBroadcastReceive = (ev) => {
-  console.log('Broadcast received:', ev);
-  const parsedData = JSON.parse(structuredClone(ev.data));
-  console.log(parsedData);
-  if (typeof parsedData.notes !== 'undefined') {
-    emptyAllNoteSections();
-    parsedData.notes.forEach((note) => {
-      const domNote = createNewNote(
-        note.creatorId,
-        note.noteId,
-        note.topic,
-        note.text,
-      );
-      appendCreatedNote(domNote, note.topic);
-    });
-  } else if (parsedData.participants) {
-    const newParticipant =
-      parsedData.participants[parsedData.participants.length - 1];
-    localStorage.setItem('user', JSON.stringify(newParticipant));
-    window.location.reload();
-  } else if (parsedData.participantId) {
-    localStorage.removeItem('user');
-    window.location.reload();
-    console.log('heheheheh', JSON.stringify(parsedData.participantId));
-  }
-};
 
 const expungeOldUnpublishedNotes = () => {
   const unpublishedSection = document.querySelector(unpublishedNotesAttr);
@@ -67,8 +37,6 @@ const expungeOldUnpublishedNotes = () => {
 
   notesToSubmit.length = 0;
 };
-
-const socketInstance = openSocket(onBroadcastReceive);
 
 const newNoteForm = document.getElementById(newNoteFormId);
 newNoteForm.addEventListener('submit', (ev) => {

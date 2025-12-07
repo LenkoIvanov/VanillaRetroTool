@@ -38,12 +38,9 @@ const logoutParticipantSchema = z.object({
 });
 
 export const incomingDataSchema = z.discriminatedUnion('type', [
-  
   createPayloadSchema,
- 
   deletePayloadSchema,
   editPayloadSchema,
-,
   loginParticipantSchema,
   logoutParticipantSchema,
 ]);

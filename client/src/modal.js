@@ -1,4 +1,4 @@
-import { openSocket } from './scripts/socketConnection';
+import { socketInstance } from './scripts/socketConnection';
 
 export const initModal = () => {
   const modal =
@@ -42,8 +42,6 @@ export const initModal = () => {
       document.body.classList.remove('modal-open');
     }
   });
-
-  const socketInstance = openSocket(() => {});
 
   if (loginForm) {
     loginForm?.addEventListener('submit', (ev) => {

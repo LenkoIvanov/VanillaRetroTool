@@ -6,7 +6,6 @@ import { retroNotesService } from './services/retroNotesService.js';
 import logger from './singletons/logger.js';
 import { webSocketService } from './services/webSocketService.js';
 import { loginService } from './services/loginService.js';
-import { parseIncomingData } from './helpers/helper.js';
 
 const wss = new WebSocketServer(wssConfig);
 
