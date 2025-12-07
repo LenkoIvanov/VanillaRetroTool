@@ -61,5 +61,5 @@ export const logoutModalId = 'logoutModal';
 export const loginFormId = 'loginForm';
 export const logoutFormId = 'logoutForm';
 export const formUsernameId = 'username';
-export const formParticipantId = 'partiicpant-id';
+export const formParticipantId = 'participant-id';
 export const modalContainerId = 'modal-container';
