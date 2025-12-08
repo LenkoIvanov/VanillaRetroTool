@@ -7,18 +7,31 @@
     <link rel="stylesheet" href="./src/styles/index.css" />
     <script src="./src/scripts/loadFA.js" type="module"></script>
     <script src="./src/main.js" type="module"></script>
+    <script src="./src/modal.js" type="module"></script>
   </head>
   <body>
     <header>
       <h1>JustAnotherRetro</h1>
       <ul class="navbar-menu">
-        <li>
-          <button type="button" class="btn btn-primary">
+        <li class="participants-container">
+          <button data-userListBtn type="button" class="btn btn-primary">
             <i class="fa-regular fa-user"></i>
             Participants
           </button>
+          <div class="participants-modal" data-participantsModal>
+            <ul id="participants-list"></ul>
+          </div>
         </li>
-        <li><button type="button" class="btn btn-user">A</button></li>
+        <li>
+          <button
+            type="button"
+            class="btn btn-user"
+            data-modal-target="#loginModal"
+            id="btnUser"
+          >
+            A
+          </button>
+        </li>
       </ul>
     </header>
 
@@ -159,5 +172,7 @@
         </div>
       </section>
     </main>
+    <!-- Placeholder where login.html will be injected -->
+    <div id="modal-container"></div>
   </body>
 </html>

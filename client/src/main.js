@@ -12,37 +12,20 @@ import {
   editFormNoteTypeAttrName,
   editFormNoteIdAttrName,
   btnEditClass,
+  userListBtnAttr,
+  participantsModalAttr,
+  userModalOpen,
 } from './constants/domElements';
 import {
-  appendCreatedNote,
-  createNewNote,
   createWipNote,
-  emptyAllNoteSections,
   deleteSingleDomNote,
   toggleEditModeOn,
   toggleEditModeOff,
+  createUserListItem,
 } from './scripts/domFunctions';
-import { openSocket } from './scripts/socketConnection';
+import { socketInstance } from './scripts/socketConnection';
 
 const notesToSubmit = [];
-
-const onBroadcastReceive = (ev) => {
-  console.log('Broadcast received:', ev);
-  const parsedNoteData = JSON.parse(ev.data);
-  console.log(parsedNoteData);
-  if (typeof parsedNoteData.notes !== 'undefined') {
-    emptyAllNoteSections();
-    parsedNoteData.notes.forEach((note) => {
-      const domNote = createNewNote(
-        note.creatorId,
-        note.noteId,
-        note.topic,
-        note.text,
-      );
-      appendCreatedNote(domNote, note.topic);
-    });
-  }
-};
 
 const expungeOldUnpublishedNotes = () => {
   const unpublishedSection = document.querySelector(unpublishedNotesAttr);
@@ -59,7 +42,19 @@ const expungeOldUnpublishedNotes = () => {
   notesToSubmit.length = 0;
 };
 
-const socketInstance = openSocket(onBroadcastReceive);
+addEventListener('load', () => {
+  const userList = JSON.parse(localStorage.getItem('userList'));
+  const currentUserName = JSON.parse(localStorage.getItem('user')).name;
+  if (userList && userList.length) {
+    userList.forEach((username) => {
+      if (currentUserName === username) {
+        createUserListItem(username + ' (You)');
+      } else {
+        createUserListItem(username);
+      }
+    });
+  }
+});
 
 const newNoteForm = document.getElementById(newNoteFormId);
 newNoteForm.addEventListener('submit', (ev) => {
@@ -85,7 +80,7 @@ newNoteForm.addEventListener('submit', (ev) => {
   } else {
     const formData = new FormData(ev.target);
     const notePayload = {
-      creatorId: 'Lenko',
+      creatorId: localStorage.getItem('user'),
       topic: formData.get(formNoteTopic),
       text: formData.get(formNoteContent),
     };
@@ -148,6 +143,18 @@ document.addEventListener('click', (ev) => {
   if (ev.target.classList.contains(btnEditClass)) {
     toggleEditModeOn(ev);
   }
+});
+
+const participantsBtn = document.querySelector(userListBtnAttr);
+participantsBtn.addEventListener('click', () => {
+  const participantsModal = document.querySelector(participantsModalAttr);
+
+  if (participantsModal.classList.contains(userModalOpen)) {
+    participantsModal.classList.remove(userModalOpen);
+    return;
+  }
+
+  participantsModal.classList.add(userModalOpen);
 });
 
 document.addEventListener('onbeforeunload', socketInstance.close);

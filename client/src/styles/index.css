@@ -1,5 +1,6 @@
 @import './reset.css';
 @import './design-tokens/design-tokens.css';
+@import './modal.css';
 
 body {
   height: 100vh;
@@ -27,6 +28,38 @@ body {
   align-items: center;
 }
 
+.participants-container {
+  position: relative;
+}
+
+.participants-modal {
+  position: absolute;
+  right: 15%;
+  padding: 5px 10px;
+  min-width: 150px;
+  background-color: var(--clr-bg-participants);
+  border: 1px solid var(--clr-border-participants);
+  z-index: 10;
+  border-radius: 8px;
+  display: none;
+}
+
+.participants-modal__open {
+  display: block;
+}
+
+.user-item {
+  padding: 2px 2px;
+  color: var(--clr-border-participants);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.user-item > svg {
+  margin-right: 5px;
+}
+
 .btn {
   display: flex;
   align-items: center;
@@ -45,6 +78,10 @@ body {
 
 .btn-primary:hover {
   border-color: var(--white);
+}
+
+.btn-primary > svg {
+  margin-right: 5px;
 }
 
 .btn-user {
